@@ -1,4 +1,4 @@
-using MyFinlys.Domain.Entities;
+namespace MyFinlys.Domain.Entities;
 
 public class Bank : Entity
 {
@@ -9,7 +9,7 @@ public class Bank : Entity
     public Bank(string name) : base()
     {
         if (name.Length < 3)
-            throw new ArgumentException("Name must be at least 3 characters long.");
+            throw new ArgumentException("Name must be at least 3 characters long.", nameof(name));
 
         Name = name;
     }

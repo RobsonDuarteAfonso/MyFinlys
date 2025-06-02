@@ -17,7 +17,7 @@ public sealed class Password
     public static Password FromHashed(string hash)
     {
         if (string.IsNullOrWhiteSpace(hash))
-            throw new ArgumentException("Invalid hash.");
+            throw new ArgumentException("Invalid hash.", nameof(hash));
 
         return new Password { Value = hash };
     }
