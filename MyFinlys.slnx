@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MyFinlys.Api/MyFinlys.Api.csproj" />
+  <Project Path="MyFinlys.Application/MyFinlys.Application.csproj" />
+  <Project Path="MyFinlys.Domain/MyFinlys.Domain.csproj" />
+  <Project Path="MyFinlys.Infrastructure/MyFinlys.Infrastructure.csproj" />
+  <Project Path="MyFinlys.Shared/MyFinlys.Shared.csproj" />
+</Solution>

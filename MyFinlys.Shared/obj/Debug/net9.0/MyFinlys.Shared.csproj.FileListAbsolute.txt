@@ -1,0 +1,11 @@
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.AssemblyInfoInputs.cache
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.AssemblyInfo.cs
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.csproj.CoreCompileInputs.cache
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\bin\Debug\net9.0\MyFinlys.Shared.deps.json
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\bin\Debug\net9.0\MyFinlys.Shared.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\bin\Debug\net9.0\MyFinlys.Shared.pdb
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\refint\MyFinlys.Shared.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\MyFinlys.Shared.pdb
+C:\Users\robso\apps\MyFinlys\MyFinlys.Shared\obj\Debug\net9.0\ref\MyFinlys.Shared.dll

@@ -1,0 +1,6 @@
+@MyFinlys.Api_HostAddress = http://localhost:5077
+
+GET {{MyFinlys.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

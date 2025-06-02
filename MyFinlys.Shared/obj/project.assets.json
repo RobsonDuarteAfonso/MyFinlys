@@ -1,0 +1,215 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "Microsoft.Net.Sdk.Compilers.Toolset/9.0.300": {
+        "type": "package"
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Net.Sdk.Compilers.Toolset/9.0.300": {
+      "sha512": "M5BC6bp9Sc3Og5LG3au1PkEXCO2WYMEaOwROwvN4WJWOuob0YpFVk0En/6FXeNDYE7rE1xAwEk5NxmuklWC6kA==",
+      "type": "package",
+      "path": "microsoft.net.sdk.compilers.toolset/9.0.300",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "Microsoft.Build.Tasks.CodeAnalysis.dll",
+        "Microsoft.CSharp.Core.targets",
+        "Microsoft.CodeAnalysis.CSharp.Scripting.dll",
+        "Microsoft.CodeAnalysis.CSharp.dll",
+        "Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll",
+        "Microsoft.CodeAnalysis.Scripting.dll",
+        "Microsoft.CodeAnalysis.VisualBasic.dll",
+        "Microsoft.CodeAnalysis.dll",
+        "Microsoft.DiaSymReader.Native.amd64.dll",
+        "Microsoft.DiaSymReader.Native.arm64.dll",
+        "Microsoft.DiaSymReader.Native.x86.dll",
+        "Microsoft.Managed.Core.CurrentVersions.targets",
+        "Microsoft.Managed.Core.targets",
+        "Microsoft.VisualBasic.Core.targets",
+        "System.Buffers.dll",
+        "System.Collections.Immutable.dll",
+        "System.Memory.dll",
+        "System.Numerics.Vectors.dll",
+        "System.Reflection.Metadata.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll",
+        "System.Text.Encoding.CodePages.dll",
+        "System.Threading.Tasks.Extensions.dll",
+        "VBCSCompiler.exe",
+        "VBCSCompiler.exe.config",
+        "cs/cs/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "cs/cs/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "cs/cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "cs/cs/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "cs/cs/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "cs/cs/Microsoft.CodeAnalysis.resources.dll",
+        "csc.exe",
+        "csc.exe.config",
+        "csc.rsp",
+        "csi.exe",
+        "csi.exe.config",
+        "csi.rsp",
+        "de/de/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "de/de/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "de/de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "de/de/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "de/de/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "de/de/Microsoft.CodeAnalysis.resources.dll",
+        "es/es/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "es/es/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "es/es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "es/es/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "es/es/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "es/es/Microsoft.CodeAnalysis.resources.dll",
+        "fr/fr/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "fr/fr/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "fr/fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "fr/fr/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "fr/fr/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "fr/fr/Microsoft.CodeAnalysis.resources.dll",
+        "it/it/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "it/it/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "it/it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "it/it/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "it/it/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "it/it/Microsoft.CodeAnalysis.resources.dll",
+        "ja/ja/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "ja/ja/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "ja/ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "ja/ja/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "ja/ja/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "ja/ja/Microsoft.CodeAnalysis.resources.dll",
+        "ko/ko/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "ko/ko/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "ko/ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "ko/ko/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "ko/ko/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "ko/ko/Microsoft.CodeAnalysis.resources.dll",
+        "microsoft.net.sdk.compilers.toolset.9.0.300.nupkg.sha512",
+        "microsoft.net.sdk.compilers.toolset.nuspec",
+        "pl/pl/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "pl/pl/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "pl/pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "pl/pl/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "pl/pl/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "pl/pl/Microsoft.CodeAnalysis.resources.dll",
+        "pt-BR/pt-BR/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "pt-BR/pt-BR/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "pt-BR/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "pt-BR/pt-BR/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "pt-BR/pt-BR/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "pt-BR/pt-BR/Microsoft.CodeAnalysis.resources.dll",
+        "ru/ru/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "ru/ru/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "ru/ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "ru/ru/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "ru/ru/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "ru/ru/Microsoft.CodeAnalysis.resources.dll",
+        "tr/tr/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "tr/tr/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "tr/tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "tr/tr/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "tr/tr/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "tr/tr/Microsoft.CodeAnalysis.resources.dll",
+        "vbc.exe",
+        "vbc.exe.config",
+        "vbc.rsp",
+        "zh-Hans/zh-Hans/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "zh-Hans/zh-Hans/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "zh-Hans/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "zh-Hans/zh-Hans/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "zh-Hans/zh-Hans/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "zh-Hans/zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.Build.Tasks.CodeAnalysis.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.Scripting.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+        "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.resources.dll"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "Microsoft.Net.Sdk.Compilers.Toolset >= 9.0.300"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\robso\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj",
+      "projectName": "MyFinlys.Shared",
+      "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj",
+      "packagesPath": "C:\\Users\\robso\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\robso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "dependencies": {
+          "Microsoft.Net.Sdk.Compilers.Toolset": {
+            "target": "Package",
+            "version": "[9.0.300, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

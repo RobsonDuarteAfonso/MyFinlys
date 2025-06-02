@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3ach1DbHa0g=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Application\\MyFinlys.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robso\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\robso\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.300\\microsoft.net.sdk.compilers.toolset.9.0.300.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,15 @@
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.AssemblyInfoInputs.cache
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.AssemblyInfo.cs
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.csproj.CoreCompileInputs.cache
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.csproj.AssemblyReference.cache
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\bin\Debug\net9.0\MyFinlys.Domain.deps.json
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\bin\Debug\net9.0\MyFinlys.Domain.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\bin\Debug\net9.0\MyFinlys.Domain.pdb
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\bin\Debug\net9.0\MyFinlys.Shared.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\bin\Debug\net9.0\MyFinlys.Shared.pdb
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.D903B3ED.Up2Date
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\refint\MyFinlys.Domain.dll
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\MyFinlys.Domain.pdb
+C:\Users\robso\apps\MyFinlys\MyFinlys.Domain\obj\Debug\net9.0\ref\MyFinlys.Domain.dll

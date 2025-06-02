@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FpbNXwADfrM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robso\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.300\\microsoft.net.sdk.compilers.toolset.9.0.300.nupkg.sha512"
+  ],
+  "logs": []
+}
