@@ -1,4 +1,5 @@
 using MyFinlys.Domain.Enums;
+using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Domain.Entities;
 
@@ -11,25 +12,14 @@ public class EventMonthly : Event
 
     public EventMonthly(
         EventType type,
+        EventPeriod period,
         decimal value,
         string description,
-        DateTime due,
-        DateTime? dateInitial = null,
-        DateTime? dateFinish = null,
-        int installmentTotal = 0,
-        Affirmation autoRealized = Affirmation.No,
-        Guid? accountId = null
-    ) : base(
-        type,
-        EventPeriod.Monthly,
-        value,
-        description,
-        installmentTotal,
-        dateInitial,
-        dateFinish,
-        autoRealized,
-        accountId ?? Guid.Empty
-    )
+        Installment? installment,
+        Affirmation autoRealized,
+        Guid accountId,
+        DateTime due
+    ) : base(type, period, value, description, installment, autoRealized, accountId)
     {
         Due = due;
     }

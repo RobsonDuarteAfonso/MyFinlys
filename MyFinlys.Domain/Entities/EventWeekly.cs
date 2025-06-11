@@ -1,4 +1,5 @@
 using MyFinlys.Domain.Enums;
+using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Domain.Entities;
 
@@ -8,29 +9,18 @@ public class EventWeekly : Event
 
     private EventWeekly() { }
 
-    public EventWeekly(
-        EventType type,
-        decimal value,
-        string description,
-        DayOfWeek dayOfWeek,
-        DateTime? dateInitial = null,
-        DateTime? dateFinish = null,
-        int installmentTotal = 0,
-        Affirmation autoRealized = Affirmation.No,
-        Guid? accountId = null
-    ) : base(
-        type,
-        EventPeriod.Weekly,
-        value,
-        description,
-        installmentTotal,
-        dateInitial,
-        dateFinish,
-        autoRealized,
-        accountId ?? Guid.Empty
-    )
-    {
-        DayOfWeek = dayOfWeek;
-    }
+        public EventWeekly(
+            EventType type,
+            EventPeriod period,
+            decimal value,
+            string description,
+            Installment? installment,
+            Affirmation autoRealized,
+            Guid accountId,
+            DayOfWeek dayOfWeek
+        ) : base(type, period, value, description, installment, autoRealized, accountId)
+        {
+            DayOfWeek = dayOfWeek;
+        }
 
 }

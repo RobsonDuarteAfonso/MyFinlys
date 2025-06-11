@@ -1,4 +1,5 @@
 using MyFinlys.Domain.Enums;
+using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Domain.Entities;
 
@@ -12,26 +13,15 @@ public class EventBiweekly : Event
 
     public EventBiweekly(
         EventType type,
+        EventPeriod period,
         decimal value,
         string description,
+        Installment? installment,
+        Affirmation autoRealized,
+        Guid accountId,
         DayOfWeek dayOfWeek,
-        DateTime startDate,
-        DateTime? dateInitial = null,
-        DateTime? dateFinish = null,
-        int installmentTotal = 0,
-        Affirmation autoRealized = Affirmation.No,
-        Guid? accountId = null
-    ) : base(
-        type,
-        EventPeriod.Biweekly,
-        value,
-        description,
-        installmentTotal,
-        dateInitial,
-        dateFinish,
-        autoRealized,
-        accountId ?? Guid.Empty
-    )
+        DateTime startDate
+    ) : base(type, period, value, description, installment, autoRealized, accountId)
     {
         DayOfWeek = dayOfWeek;
         StartDate = startDate;

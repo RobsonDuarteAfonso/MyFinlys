@@ -1,4 +1,5 @@
 using MyFinlys.Domain.Enums;
+using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Domain.Entities;
 
@@ -8,9 +9,7 @@ public abstract class Event : Entity
     public EventPeriod Period { get; protected set; }
     public decimal Value { get; protected set; }
     public string Description { get; protected set; } = string.Empty;
-    public int InstallmentTotal { get; protected set; } = 0;
-    public DateTime? DateInitial { get; protected set; }
-    public DateTime? DateFinish { get; protected set; }
+    public Installment? Installment { get; protected set; }
     public Affirmation AutoRealized { get; protected set; }
     public Guid AccountId { get; protected set; }
     public Account Account { get; protected set; } = null!;
@@ -22,9 +21,7 @@ public abstract class Event : Entity
         EventPeriod period,
         decimal value,
         string description,
-        int installmentTotal,
-        DateTime? dateInitial,
-        DateTime? dateFinish,
+        Installment? installment,
         Affirmation autoRealized,
         Guid accountId
     )
@@ -33,9 +30,7 @@ public abstract class Event : Entity
         Period = period;
         Value = value;
         Description = description;
-        InstallmentTotal = installmentTotal;
-        DateInitial = dateInitial;
-        DateFinish = dateFinish;
+        Installment = installment;
         AutoRealized = autoRealized;
         AccountId = accountId;
     }
