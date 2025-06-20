@@ -23,27 +23,13 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
-          "Microsoft.Net.Sdk.Compilers.Toolset": "9.0.300",
-          "MyFinlys.Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/MyFinlys.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyFinlys.Domain.dll": {}
-        }
-      },
-      "MyFinlys.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
           "Microsoft.Net.Sdk.Compilers.Toolset": "9.0.300"
         },
         "compile": {
-          "bin/placeholder/MyFinlys.Shared.dll": {}
+          "bin/placeholder/MyFinlys.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MyFinlys.Shared.dll": {}
+          "bin/placeholder/MyFinlys.Domain.dll": {}
         }
       }
     }
@@ -207,17 +193,11 @@
       "type": "project",
       "path": "../MyFinlys.Domain/MyFinlys.Domain.csproj",
       "msbuildProject": "../MyFinlys.Domain/MyFinlys.Domain.csproj"
-    },
-    "MyFinlys.Shared/1.0.0": {
-      "type": "project",
-      "path": "../MyFinlys.Shared/MyFinlys.Shared.csproj",
-      "msbuildProject": "../MyFinlys.Shared/MyFinlys.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "MyFinlys.Domain >= 1.0.0",
-      "MyFinlys.Shared >= 1.0.0"
+      "MyFinlys.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -254,9 +234,6 @@
           "projectReferences": {
             "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Domain\\MyFinlys.Domain.csproj": {
               "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Domain\\MyFinlys.Domain.csproj"
-            },
-            "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj": {
-              "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj"
             }
           }
         }

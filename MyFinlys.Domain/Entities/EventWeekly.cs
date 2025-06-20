@@ -1,3 +1,4 @@
+using MyFinlys.Domain.Common;
 using MyFinlys.Domain.Enums;
 using MyFinlys.Domain.ValueObjects;
 
@@ -9,18 +10,22 @@ public class EventWeekly : Event
 
     private EventWeekly() { }
 
-        public EventWeekly(
-            EventType type,
-            EventPeriod period,
-            decimal value,
-            string description,
-            Installment? installment,
-            Affirmation autoRealized,
-            Guid accountId,
-            DayOfWeek dayOfWeek
-        ) : base(type, period, value, description, installment, autoRealized, accountId)
-        {
-            DayOfWeek = dayOfWeek;
-        }
+    public EventWeekly(
+        EventType type,
+        EventPeriod period,
+        decimal value,
+        string description,
+        Installment? installment,
+        Affirmation autoRealized,
+        Affirmation finished,
+        Guid accountId,
+        DayOfWeek dayOfWeek
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId)
+    {
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
+        
+        DayOfWeek = dayOfWeek;
+    }
 
 }

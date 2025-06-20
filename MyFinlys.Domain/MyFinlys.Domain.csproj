@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.Net.Sdk.Compilers.Toolset" Version="9.0.300" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MyFinlys.Shared\MyFinlys.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,25 +1,41 @@
-﻿using MyFinlys.Domain.ValueObjects;
+﻿using MyFinlys.Domain.Common;
+using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Domain.Entities;
 
 public class User : Entity
 {
-    public string Name { get; private set; } = string.Empty;
-    public Email Email { get; private set; } = new Email("placeholder@email.com");
-    public Password Password { get; private set; } = Password.FromHashed("fake-hash");
+    public string Name { get; private set; } = null!;
+    public Email Email { get; private set; } = null!;
+    public Password Password { get; private set; } = null!;
     public ICollection<Account> Accounts { get; private set; } = [];
 
     //EF
     private User() { }
 
-    public User(string name, string email, string password) : base()
+    private User(Guid id, DateTime createdAt, DateTime updatedAt,
+                 string name, Email email, Password password)
+        : base(id, createdAt, updatedAt)
     {
-
-        if (name.Length < 3)
-            throw new ArgumentException("Name must be at least 3 characters long.", nameof(name));
-
         Name = name;
-        Email = new Email(email);
-        Password = new Password(password);
+        Email = email;
+        Password = password;
     }
+    
+    public static User Create(string name, string email, string password)
+    {
+        Guard.AgainstLengthLessThan(name, 3, nameof(name));
+        
+        var emailVO = Email.Create(email);
+        var passwordVO = Password.Create(password);
+
+        return new User(
+            Guid.NewGuid(),
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            name,
+            emailVO,
+            passwordVO
+        );
+    }    
 }

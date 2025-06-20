@@ -1,3 +1,4 @@
+using MyFinlys.Domain.Common;
 using MyFinlys.Domain.Enums;
 
 namespace MyFinlys.Domain.Entities;
@@ -13,23 +14,21 @@ public class Account : Entity
 
     private Account() { }
 
-    public Account(string number, AccountType type, Guid userId, Guid bankId) : base()
+    private Account(string number, AccountType type, Guid userId, Guid bankId) : base()
     {
-        if (number.Length < 3)
-            throw new ArgumentException("Account Number must be at least 3 characters long.", nameof(number));
-
-        if (!Enum.IsDefined(type))
-            throw new ArgumentException("Invalid account type!", nameof(type));
-
-        if (userId == Guid.Empty)
-            throw new ArgumentException("User cannot be empty.", nameof(userId));
-
-        if (bankId == Guid.Empty)
-            throw new ArgumentException("Bank cannot be empty.", nameof(bankId));
-
         Number = number;
         Type = type;
         UserId = userId;
         BankId = bankId;
+    }
+
+    public static Account Create(string number, AccountType type, Guid userId, Guid bankId)
+    {
+        Guard.AgainstLengthLessThan(number, 3, nameof(number));
+        Guard.AgainstInvalidEnumValue(type, nameof(type));
+        Guard.AgainstEmptyGuid(userId, nameof(userId));
+        Guard.AgainstEmptyGuid(bankId, nameof(bankId));
+
+        return new Account(number, type, userId, bankId);
     }
 }

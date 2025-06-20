@@ -1,4 +1,4 @@
-using MyFinlys.Shared.Validations;
+using MyFinlys.Domain.Validations;
 
 namespace MyFinlys.Domain.ValueObjects
 {
@@ -8,10 +8,15 @@ namespace MyFinlys.Domain.ValueObjects
 
         private Email() { }
 
-        public Email(string value)
+        private Email(string value)
+        {
+            Value = value;
+        }
+
+        public static Email Create(string value)
         {
             EmailValidator.Validate(value);
-            Value = value;
+            return new Email(value);
         }
 
         public static implicit operator string(Email email) => email.Value;

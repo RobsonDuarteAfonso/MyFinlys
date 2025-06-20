@@ -17,19 +17,6 @@
       },
       "Microsoft.Net.Sdk.Compilers.Toolset/9.0.300": {
         "type": "package"
-      },
-      "MyFinlys.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Microsoft.Net.Sdk.Compilers.Toolset": "9.0.300"
-        },
-        "compile": {
-          "bin/placeholder/MyFinlys.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/MyFinlys.Shared.dll": {}
-        }
       }
     }
   },
@@ -187,18 +174,12 @@
         "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.VisualBasic.resources.dll",
         "zh-Hant/zh-Hant/Microsoft.CodeAnalysis.resources.dll"
       ]
-    },
-    "MyFinlys.Shared/1.0.0": {
-      "type": "project",
-      "path": "../MyFinlys.Shared/MyFinlys.Shared.csproj",
-      "msbuildProject": "../MyFinlys.Shared/MyFinlys.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "BCrypt.Net-Next >= 4.0.3",
-      "Microsoft.Net.Sdk.Compilers.Toolset >= 9.0.300",
-      "MyFinlys.Shared >= 1.0.0"
+      "Microsoft.Net.Sdk.Compilers.Toolset >= 9.0.300"
     ]
   },
   "packageFolders": {
@@ -232,11 +213,7 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {
-            "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj": {
-              "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Shared\\MyFinlys.Shared.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

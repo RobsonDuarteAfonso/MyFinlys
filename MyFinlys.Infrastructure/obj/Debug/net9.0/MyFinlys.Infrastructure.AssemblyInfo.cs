@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyFinlys.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a33250ccbad4a06ef6039d5beed7b78c81a25a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cafc544273fc6db4f0018b0c5e450ea9177ff33")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyFinlys.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyFinlys.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

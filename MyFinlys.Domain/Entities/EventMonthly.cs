@@ -1,3 +1,4 @@
+using MyFinlys.Domain.Common;
 using MyFinlys.Domain.Enums;
 using MyFinlys.Domain.ValueObjects;
 
@@ -9,7 +10,6 @@ public class EventMonthly : Event
 
     private EventMonthly() { }
 
-
     public EventMonthly(
         EventType type,
         EventPeriod period,
@@ -17,10 +17,14 @@ public class EventMonthly : Event
         string description,
         Installment? installment,
         Affirmation autoRealized,
+        Affirmation finished,
         Guid accountId,
         DateTime due
-    ) : base(type, period, value, description, installment, autoRealized, accountId)
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId)
     {
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        Guard.AgainstInvalidDate(due, nameof(due));
+        
         Due = due;
     }
 

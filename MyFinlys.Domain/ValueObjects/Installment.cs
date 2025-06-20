@@ -4,18 +4,16 @@ namespace MyFinlys.Domain.ValueObjects
 {
     public sealed class Installment : ValueObjectBase<Installment>
     {
-        public int InstallmentTotal { get; }
-        public int InstallmentCurrent { get; }
-        public decimal InstallmentValue { get; }
-        public DateTime? DateInitial { get; }
-        public DateTime? DateFinish { get; }
+        public int InstallmentTotal { get; private set; }
+        public int InstallmentCurrent { get; private set; }
+        public decimal InstallmentValue { get; private set; }
+        public DateTime? DateInitial { get; private set; }
+        public DateTime? DateFinish { get; private set; }
 
-        private Installment() { }
+        private Installment() { } // Para EF Core
 
-        public Installment(int installmentTotal, int installmentCurrent, decimal installmentValue, DateTime? dateInitial, DateTime? dateFinish)
+        private Installment(int installmentTotal, int installmentCurrent, decimal installmentValue, DateTime? dateInitial, DateTime? dateFinish)
         {
-            InstallmentValidator.Validate(installmentTotal, installmentCurrent, installmentValue, dateInitial, dateFinish);
-
             InstallmentTotal = installmentTotal;
             InstallmentCurrent = installmentCurrent;
             InstallmentValue = installmentValue;
@@ -23,9 +21,28 @@ namespace MyFinlys.Domain.ValueObjects
             DateFinish = dateFinish;
         }
 
-        // With Methods
-        public Installment WithInstallmentCurrent(int newCurrent)
-            => new(InstallmentTotal, newCurrent, InstallmentValue, DateInitial, DateFinish);
+        // Factory de criação com validação
+        public static Installment Create(int installmentTotal, int installmentCurrent, decimal installmentValue, DateTime? dateInitial, DateTime? dateFinish)
+        {
+            InstallmentValidator.Validate(installmentTotal, installmentCurrent, installmentValue, dateInitial, dateFinish);
 
+            return new Installment(
+                installmentTotal,
+                installmentCurrent,
+                installmentValue,
+                dateInitial,
+                dateFinish
+            );
+        }
+
+        // With Methods (imutabilidade controlada)
+        public Installment WithInstallmentCurrent(int newCurrent)
+            => new(
+                InstallmentTotal,
+                newCurrent,
+                InstallmentValue,
+                DateInitial,
+                DateFinish
+            );
     }
 }

@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using MyFinlys.Domain.Common;
 
 namespace MyFinlys.Domain.Validations;
 
@@ -18,22 +19,19 @@ public static partial class PasswordValidator
 
     public static void Validate(string plainPassword)
     {
-        if (string.IsNullOrWhiteSpace(plainPassword))
-            throw new ArgumentException("Password cannot be empty.");
-
-        if (plainPassword.Length < 6)
-            throw new ArgumentException("Password must be at least 6 characters long.");
+        Guard.AgainstNullOrEmpty(plainPassword, nameof(plainPassword));
+        Guard.AgainstLengthLessThan(plainPassword, 6, nameof(plainPassword));
 
         if (!UppercaseRegex().IsMatch(plainPassword))
-            throw new ArgumentException("Password must contain at least one uppercase letter.");
+            throw new ArgumentException("Password must contain at least one uppercase letter.", nameof(plainPassword));
 
         if (!LowercaseRegex().IsMatch(plainPassword))
-            throw new ArgumentException("Password must contain at least one lowercase letter.");
+            throw new ArgumentException("Password must contain at least one lowercase letter.", nameof(plainPassword));
 
         if (!DigitRegex().IsMatch(plainPassword))
-            throw new ArgumentException("Password must contain at least one digit.");
+            throw new ArgumentException("Password must contain at least one digit.", nameof(plainPassword));
 
         if (!SymbolRegex().IsMatch(plainPassword))
-            throw new ArgumentException("Password must contain at least one symbol.");
+            throw new ArgumentException("Password must contain at least one symbol.", nameof(plainPassword));
     }
 }

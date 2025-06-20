@@ -1,3 +1,4 @@
+using MyFinlys.Domain.Common;
 using MyFinlys.Domain.Enums;
 using MyFinlys.Domain.ValueObjects;
 
@@ -18,11 +19,16 @@ public class EventBiweekly : Event
         string description,
         Installment? installment,
         Affirmation autoRealized,
+        Affirmation finished,
         Guid accountId,
         DayOfWeek dayOfWeek,
         DateTime startDate
-    ) : base(type, period, value, description, installment, autoRealized, accountId)
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId)
     {
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
+        Guard.AgainstInvalidDate(startDate, nameof(startDate));
+                
         DayOfWeek = dayOfWeek;
         StartDate = startDate;
     }

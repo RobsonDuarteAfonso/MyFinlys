@@ -2,22 +2,24 @@ namespace MyFinlys.Domain.Entities;
 
 public abstract class Entity
 {
-    public Guid Id { get; init; }
-    public DateTime Created_At { get; init; }
-    public DateTime Updated_At { get; private set; }
+    public Guid Id { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
 
-    protected Entity()
+    protected Entity() { }
+
+    protected Entity(Guid id, DateTime createdAt, DateTime updatedAt)
     {
-        Id = Guid.NewGuid();
-        Created_At = DateTime.UtcNow;
-        Updated_At = DateTime.UtcNow;
+        Id = id;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 
     public void SetUpdatedAt()
     {
-        Updated_At = DateTime.UtcNow;
-    }   
-} 
+        UpdatedAt = DateTime.UtcNow;
+    }
+}
 
 
 

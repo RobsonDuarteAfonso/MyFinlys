@@ -8,5 +8,4 @@
   <Project Path="MyFinlys.Application/MyFinlys.Application.csproj" />
   <Project Path="MyFinlys.Domain/MyFinlys.Domain.csproj" />
   <Project Path="MyFinlys.Infrastructure/MyFinlys.Infrastructure.csproj" />
-  <Project Path="MyFinlys.Shared/MyFinlys.Shared.csproj" />
 </Solution>

@@ -1,3 +1,5 @@
+using MyFinlys.Domain.Common;
+
 namespace MyFinlys.Domain.ValueObjects
 {
     public sealed class Year : ValueObjectBase<Year>
@@ -11,14 +13,9 @@ namespace MyFinlys.Domain.ValueObjects
             Value = value;
         }
 
-        //IMplementar o padrão Factories
-        //Alterar as validações para Guards
-
         public static Year Create(int value)
         {
-            if (value < 1900 || value > 2100)
-                throw new ArgumentOutOfRangeException(nameof(value), "Invalid year. Year must be between 1900 and 2100.");
-
+            Guard.AgainstYearOutsideAllowedRange(value, nameof(value));
             return new Year(value);
         }
 

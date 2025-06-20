@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyFinlys.Domain\MyFinlys.Domain.csproj" />
-    <ProjectReference Include="..\MyFinlys.Shared\MyFinlys.Shared.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

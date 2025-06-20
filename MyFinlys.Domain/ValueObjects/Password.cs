@@ -1,3 +1,4 @@
+using MyFinlys.Domain.Common;
 using MyFinlys.Domain.Validations;
 
 namespace MyFinlys.Domain.ValueObjects
@@ -8,21 +9,25 @@ namespace MyFinlys.Domain.ValueObjects
 
         private Password() { }
 
-        public Password(string value)
+        private Password(string hashedValue)
         {
-            PasswordValidator.Validate(value);
-            Value = BCrypt.Net.BCrypt.HashPassword(value);
+            Value = hashedValue;
+        }
+
+        public static Password Create(string plainText)
+        {
+            PasswordValidator.Validate(plainText);
+            var hash = BCrypt.Net.BCrypt.HashPassword(plainText);
+            return new Password(hash);
         }
 
         public static Password FromHashed(string hash)
         {
-            if (string.IsNullOrWhiteSpace(hash))
-                throw new ArgumentException("Invalid hash.", nameof(hash));
-
-            return new Password { Value = hash };
+            Guard.AgainstNullOrEmpty(hash, nameof(hash));
+            return new Password(hash);
         }
 
-        public bool Verify(string value) => BCrypt.Net.BCrypt.Verify(value, Value);
+        public bool Verify(string plainText) => BCrypt.Net.BCrypt.Verify(plainText, Value);
 
         public override string ToString() => "[PROTECTED]";
     }
