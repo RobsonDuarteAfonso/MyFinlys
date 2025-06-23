@@ -14,5 +14,14 @@ namespace MyFinlys.Infrastructure.Repositories
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.Email.Value == email);
         }
+
+        public async Task<IEnumerable<Account>> GetAccountsAsync(Guid userId)
+        {
+            return await _context.UserAccounts
+                .Where(ua => ua.UserId == userId)
+                .Include(ua => ua.Account)
+                .Select(ua => ua.Account)
+                .ToListAsync();
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace MyFinlys.Infrastructure.Context
         public DbSet<Event> Events { get; set; }
         public DbSet<Register> Registers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<Balance> Balances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

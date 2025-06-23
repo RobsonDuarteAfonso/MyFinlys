@@ -23,17 +23,23 @@ namespace MyFinlys.Infrastructure.Mappings
                    .HasConversion<string>()
                    .IsRequired();
 
-            // Relacionamento com User (com navegação inversa)
-            builder.HasOne(a => a.User)
-                   .WithMany(u => u.Accounts) 
-                   .HasForeignKey(a => a.UserId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
             // Relacionamento com Bank (com navegação inversa)
             builder.HasOne(a => a.Bank)
-                   .WithMany(b => b.Accounts) 
+                   .WithMany(b => b.Accounts)
                    .HasForeignKey(a => a.BankId)
-                   .OnDelete(DeleteBehavior.Restrict); 
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // Relacionamento com UserAccounts
+            builder.HasMany(a => a.UserAccounts)
+                   .WithOne(ua => ua.Account)
+                   .HasForeignKey(ua => ua.AccountId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            // Relacionamento com Balances
+            builder.HasMany(a => a.Balances)
+                   .WithOne(b => b.Account)
+                   .HasForeignKey(b => b.AccountId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

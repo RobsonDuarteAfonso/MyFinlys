@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyFinlys.Domain.Entities;
-using MyFinlys.Domain.ValueObjects;
 
 namespace MyFinlys.Infrastructure.Mappings
 {
@@ -44,11 +43,11 @@ namespace MyFinlys.Infrastructure.Mappings
                         .HasMaxLength(100);
             });
 
-            // Relacionamento com Accounts
-            builder.HasMany(u => u.Accounts)
-                   .WithOne(a => a.User)
-                   .HasForeignKey(a => a.UserId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            // Relacionamento com UserAccounts (muitos-para-muitos via entidade de junção)
+            builder.HasMany(u => u.UserAccounts)
+                   .WithOne(ua => ua.User)
+                   .HasForeignKey(ua => ua.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
