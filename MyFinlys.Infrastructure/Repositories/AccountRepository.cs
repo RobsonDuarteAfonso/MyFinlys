@@ -12,6 +12,9 @@ namespace MyFinlys.Infrastructure.Repositories
         public async Task<Account?> GetByNumberAsync(string number)
         {
             return await _context.Accounts
+                .Include(a => a.UserAccounts)
+                    .ThenInclude(ua => ua.User)
+                .Include(a => a.Bank)
                 .FirstOrDefaultAsync(a => a.Number == number);
         }
 

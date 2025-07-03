@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyFinlys.Application\MyFinlys.Application.csproj" />
     <ProjectReference Include="..\MyFinlys.Infrastructure\MyFinlys.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyFinlys.Domain\MyFinlys.Domain.csproj" />
   </ItemGroup>
 
 </Project>

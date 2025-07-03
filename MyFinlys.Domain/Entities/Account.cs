@@ -23,11 +23,10 @@ public class Account : Entity
         BankId = bankId;
     }
 
-    public static Account Create(string number, AccountType type, Guid userId, Guid bankId)
+    public static Account Create(string number, AccountType type, Guid bankId)
     {
         Guard.AgainstLengthLessThan(number, 3, nameof(number));
         Guard.AgainstInvalidEnumValue(type, nameof(type));
-        Guard.AgainstEmptyGuid(userId, nameof(userId));
         Guard.AgainstEmptyGuid(bankId, nameof(bankId));
 
         return new Account(number, type, bankId);

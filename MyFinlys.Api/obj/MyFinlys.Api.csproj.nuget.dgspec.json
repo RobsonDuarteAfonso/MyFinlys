@@ -35,6 +35,9 @@
               "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Application\\MyFinlys.Application.csproj": {
                 "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Application\\MyFinlys.Application.csproj"
               },
+              "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Domain\\MyFinlys.Domain.csproj": {
+                "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Domain\\MyFinlys.Domain.csproj"
+              },
               "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Infrastructure\\MyFinlys.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\robso\\apps\\MyFinlys\\MyFinlys.Infrastructure\\MyFinlys.Infrastructure.csproj"
               }
@@ -57,9 +60,17 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.5, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.*, )"
             }
           },
           "imports": [
@@ -81,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -150,7 +161,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -225,7 +236,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -310,7 +321,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

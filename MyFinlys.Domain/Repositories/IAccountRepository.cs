@@ -5,5 +5,6 @@ namespace MyFinlys.Domain.Repositories;
 public interface IAccountRepository : IRepository<Account>
 {
     Task<IEnumerable<User>> GetUsersAsync(Guid accountId);
+    Task<Account?> GetByNumberAsync(string number);
 }
 
