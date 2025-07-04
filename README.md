@@ -1,4 +1,4 @@
-# 💰 MyFinlys (English)
+# 💰 MyFinlys
 
 **MyFinlys** is a personal and family financial management application built with a Domain-Driven Design (DDD) architecture, using ASP.NET Core, Entity Framework Core and Angular.
 
