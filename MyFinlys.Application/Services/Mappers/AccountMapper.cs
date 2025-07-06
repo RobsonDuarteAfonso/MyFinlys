@@ -5,7 +5,7 @@ namespace MyFinlys.Application.Services.Mappers;
 
 public static class AccountMapper
 {
-    public static AccountDetailDto ToDto(Account account)
+    public static AccountDetailDto ToDetailDto(Account account)
     {
         return new AccountDetailDto
         {
@@ -19,6 +19,17 @@ public static class AccountMapper
                 Name = ua.User.Name,
                 Email = ua.User.Email.Value
             }).ToList()
+        };
+    }
+
+    public static AccountSummaryDto ToSummaryDto(Account account)
+    {
+        return new AccountSummaryDto
+        {
+            Id = account.Id,
+            Number = account.Number,
+            Type = account.Type.ToString(),
+            BankName = account.Bank.Name
         };
     }
 }

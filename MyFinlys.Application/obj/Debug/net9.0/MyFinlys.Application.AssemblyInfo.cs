@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyFinlys.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e7a34b2b92a18b0f48d15d2e47ad58584a9eb66")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6c4e6d3e8be87ab66355273d27cbaa4a6fcdaf2")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyFinlys.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyFinlys.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

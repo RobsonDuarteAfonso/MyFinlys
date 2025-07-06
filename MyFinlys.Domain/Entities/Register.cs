@@ -63,7 +63,40 @@ public class Register : Entity
         Guard.AgainstValueNotInRange(week, 1, 5, nameof(week));
         Guard.AgainstInvalidEnumValue(realized, nameof(realized));
         Guard.AgainstEmptyGuid(eventId, nameof(eventId));
-        
+
         return new Register(due, eventType, installmentCurrent, value, subdescription, month, week, realized, eventId);
     }
+    
+    public void Update(
+        DateTime due,
+        EventType eventType,
+        int installmentCurrent,
+        decimal value,
+        string subdescription,
+        Month month,
+        int week,
+        Affirmation realized,
+        Guid eventId)
+    {
+        Guard.AgainstInvalidDate(due, nameof(due));
+        Guard.AgainstInvalidEnumValue(eventType, nameof(eventType));
+        Guard.AgainstNegativeOrZero(installmentCurrent, nameof(installmentCurrent));
+        Guard.AgainstNegativeOrZero(value, nameof(value));
+        Guard.AgainstNullOrEmpty(subdescription, nameof(subdescription));
+        Guard.AgainstInvalidEnumValue(month, nameof(month));
+        Guard.AgainstValueNotInRange(week, 1, 5, nameof(week));
+        Guard.AgainstInvalidEnumValue(realized, nameof(realized));
+        Guard.AgainstEmptyGuid(eventId, nameof(eventId));
+
+        Due = due;
+        EventType = eventType;
+        InstallmentCurrent = installmentCurrent;
+        Value = value;
+        Subdescription = subdescription;
+        Month = month;
+        Week = week;
+        Realized = realized;
+        EventId = eventId;
+    }
+
 }

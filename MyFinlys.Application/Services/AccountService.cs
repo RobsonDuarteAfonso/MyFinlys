@@ -77,7 +77,7 @@ public class AccountService : IAccountService
         if (!Enum.TryParse<AccountType>(dto.Type, true, out var parsedType))
             throw new ArgumentException("Invalid account type.", nameof(dto.Type));
 
-        account.Update(dto.Number, parsedType);
+        account.Update(dto.Number, parsedType, dto.BankId);
         await _accountRepository.UpdateAsync(account);
 
         return AccountMapper.ToDetailDto(account);

@@ -28,7 +28,7 @@ public class RegisterService : IRegisterService
         return items.Select(RegisterMapper.ToDto);
     }
 
-    public async Task<Guid> CreateAsync(RegisterDto dto)
+    public async Task<Guid> CreateAsync(RegisterCreateDto dto)
     {
         var entity = Register.Create(
             dto.Due,
@@ -45,4 +45,37 @@ public class RegisterService : IRegisterService
         await _repository.AddAsync(entity);
         return entity.Id;
     }
+
+    public async Task<RegisterDto?> UpdateAsync(Guid id, RegisterUpdateDto dto)
+    {
+        var entity = await _repository.GetByIdAsync(id);
+        if (entity is null)
+            return null;
+
+        entity.Update(
+            dto.Due,
+            Enum.Parse<EventType>(dto.EventType),
+            dto.InstallmentCurrent,
+            dto.Value,
+            dto.Subdescription,
+            Enum.Parse<Month>(dto.Month),
+            dto.Week,
+            Enum.Parse<Affirmation>(dto.Realized),
+            dto.EventId
+        );
+
+        await _repository.UpdateAsync(entity);
+        return RegisterMapper.ToDto(entity);
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var entity = await _repository.GetByIdAsync(id);
+        if (entity is null)
+            return false;
+
+        await _repository.DeleteAsync(entity.Id);
+        return true;
+    }
+
 }

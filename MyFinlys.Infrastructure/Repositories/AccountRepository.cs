@@ -9,6 +9,16 @@ namespace MyFinlys.Infrastructure.Repositories
     {
         public AccountRepository(MyFinlysDbContext context) : base(context) { }
 
+        public async Task<IEnumerable<Account>> GetByUserIdAsync(Guid userId)
+        {
+            return await _context.Accounts
+                .Where(a => a.UserAccounts.Any(ua => ua.UserId == userId))
+                .Include(a => a.Bank)
+                .Include(a => a.UserAccounts)
+                    .ThenInclude(ua => ua.User)
+                .ToListAsync();
+        }
+
         public async Task<Account?> GetByNumberAsync(string number)
         {
             return await _context.Accounts

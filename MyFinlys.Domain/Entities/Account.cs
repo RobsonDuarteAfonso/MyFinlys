@@ -31,6 +31,18 @@ public class Account : Entity
 
         return new Account(number, type, bankId);
     }
+
+    public void Update(string number, AccountType type, Guid bankId)
+    {
+        Guard.AgainstLengthLessThan(number, 3, nameof(number));
+        Guard.AgainstInvalidEnumValue(type, nameof(type));
+        Guard.AgainstEmptyGuid(bankId, nameof(bankId));
+
+        Number = number;
+        Type = type;
+        BankId = bankId;
+    }
+
     
     public void AddUser(User user)
     {

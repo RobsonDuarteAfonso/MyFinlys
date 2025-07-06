@@ -6,5 +6,7 @@ public interface IRegisterService
 {
     Task<IEnumerable<RegisterDto>> GetByEventIdAsync(Guid eventId);
     Task<RegisterDto?> GetByIdAsync(Guid id);
-    Task<Guid> CreateAsync(RegisterDto dto);
+    Task<Guid> CreateAsync(RegisterCreateDto dto);
+    Task<RegisterDto?> UpdateAsync(Guid id, RegisterUpdateDto dto);
+    Task<bool> DeleteAsync(Guid id);
 }
