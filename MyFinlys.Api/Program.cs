@@ -1,44 +1,27 @@
-using MyFinlys.Application.Services;
-using MyFinlys.Application.Services.Interfaces;
-using MyFinlys.Domain.Repositories;
-using MyFinlys.Infrastructure;
-using MyFinlys.Infrastructure.Repositories;
+using MyFinlys.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// 1) JWT
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
-builder.Services.AddInfrastructure(builder.Configuration);
-
-// Repositórios
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IBankRepository, BankRepository>();
-builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
-builder.Services.AddScoped<IEventRepository, EventRepository>();
-builder.Services.AddScoped<IEventWeeklyRepository, EventWeeklyRepository>();
-builder.Services.AddScoped<IEventMonthlyRepository, EventMonthlyRepository>();
-builder.Services.AddScoped<IEventBiweeklyRepository, EventBiweeklyRepository>();
-
-// Serviços
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IBankService, BankService>();
-builder.Services.AddScoped<IRegisterService, RegisterService>();
-builder.Services.AddScoped<IEventWeeklyService, EventWeeklyService>();
-builder.Services.AddScoped<IEventMonthlyService, EventMonthlyService>();
-builder.Services.AddScoped<IEventBiweeklyService, EventBiweeklyService>();
-
-// Controllers e Swagger
-builder.Services.AddControllers().AddNewtonsoftJson();
+// 2) Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// 3) Infraestrutura & Repositórios
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// 4) Serviços de aplicação + AuthService
+builder.Services.AddApplicationServices();
+
+// 5) Controllers
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -46,7 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-

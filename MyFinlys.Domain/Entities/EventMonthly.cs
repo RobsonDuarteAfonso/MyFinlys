@@ -24,8 +24,32 @@ public class EventMonthly : Event
     {
         ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
         Guard.AgainstInvalidDate(due, nameof(due));
-        
+
         Due = due;
     }
 
+    public void Update(
+        EventType type,
+        EventPeriod period,
+        decimal value,
+        string description,
+        Installment? installment,
+        Affirmation autoRealized,
+        Affirmation finished,
+        Guid accountId,
+        DateTime due)
+    {
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        Guard.AgainstInvalidDate(due, nameof(due));
+
+        Type         = type;
+        Period       = period;
+        Value        = value;
+        Description  = description;
+        Installment  = installment;
+        AutoRealized = autoRealized;
+        Finished     = finished;
+        AccountId    = accountId;
+        Due          = due;
+    }
 }

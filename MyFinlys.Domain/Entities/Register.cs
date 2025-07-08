@@ -1,5 +1,4 @@
 using MyFinlys.Domain.Common;
-using MyFinlys.Domain.Entities;
 using MyFinlys.Domain.Enums;
 
 namespace MyFinlys.Domain.Entities;

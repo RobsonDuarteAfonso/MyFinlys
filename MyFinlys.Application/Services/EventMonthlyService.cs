@@ -6,46 +6,91 @@ using MyFinlys.Domain.Enums;
 using MyFinlys.Domain.Repositories;
 using MyFinlys.Domain.ValueObjects;
 
-public class EventMonthlyService : IEventMonthlyService
+namespace MyFinlys.Application.Services
 {
-    private readonly IEventMonthlyRepository _repository;
-
-    public EventMonthlyService(IEventMonthlyRepository repository)
+    public class EventMonthlyService : IEventMonthlyService
     {
-        _repository = repository;
-    }
+        private readonly IEventMonthlyRepository _repo;
+        public EventMonthlyService(IEventMonthlyRepository repo) => _repo = repo;
 
-    public async Task<IEnumerable<EventMonthlyDto>> GetAllAsync()
-    {
-        var events = await _repository.GetAllAsync();
-        return events.Select(EventMonthlyMapper.ToDto);
-    }
+        public async Task<IEnumerable<EventMonthlyDto>> GetAllAsync() =>
+            (await _repo.GetAllAsync()).Select(EventMonthlyMapper.ToDto);
 
-    public async Task<EventMonthlyDto?> GetByIdAsync(Guid id)
-    {
-        var entity = await _repository.GetByIdAsync(id);
-        return entity is null ? null : EventMonthlyMapper.ToDto(entity);
-    }
+        public async Task<EventMonthlyDto?> GetByIdAsync(Guid id) =>
+            (await _repo.GetByIdAsync(id)) is EventMonthly e
+                ? EventMonthlyMapper.ToDto(e)
+                : null;
 
-    public async Task<Guid> CreateAsync(EventMonthlyDto dto)
-    {
-        var installment = dto.InstallmentTotal.HasValue
-            ? Installment.Create(dto.InstallmentTotal.Value, dto.InstallmentCurrent!.Value, 0, null, null)
-            : null;
+        public async Task<Guid> CreateAsync(EventMonthlyDto dto)
+        {
+            Installment? inst = null;
+            if (dto.InstallmentTotal.HasValue && dto.InstallmentCurrent.HasValue)
+            {
+                inst = Installment.Create(
+                    dto.InstallmentTotal.Value,
+                    dto.InstallmentCurrent.Value,
+                    dto.Value,
+                    dto.InstallmentDateInitial,
+                    dto.InstallmentDateFinish
+                );
+            }
 
-        var entity = new EventMonthly(
-            Enum.Parse<EventType>(dto.Type),
-            Enum.Parse<EventPeriod>(dto.Period),
-            dto.Value,
-            dto.Description,
-            installment,
-            Enum.Parse<Affirmation>(dto.AutoRealized),
-            Enum.Parse<Affirmation>(dto.Finished),
-            dto.AccountId,
-            dto.Due
-        );
+            var entity = new EventMonthly(
+                Enum.Parse<EventType>(dto.Type, true),
+                Enum.Parse<EventPeriod>(dto.Period, true),
+                dto.Value,
+                dto.Description,
+                inst,
+                Enum.Parse<Affirmation>(dto.AutoRealized, true),
+                Enum.Parse<Affirmation>(dto.Finished, true),
+                dto.AccountId,
+                dto.Due
+            );
 
-        await _repository.AddAsync(entity);
-        return entity.Id;
+            await _repo.AddAsync(entity);
+            return entity.Id;
+        }
+
+        public async Task<EventMonthlyDto?> UpdateAsync(Guid id, EventMonthlyDto dto)
+        {
+            var entity = await _repo.GetByIdAsync(id);
+            if (entity is null) return null;
+
+            Installment? inst = null;
+            if (dto.InstallmentTotal.HasValue && dto.InstallmentCurrent.HasValue)
+            {
+                inst = Installment.Create(
+                    dto.InstallmentTotal.Value,
+                    dto.InstallmentCurrent.Value,
+                    dto.Value,
+                    dto.InstallmentDateInitial,
+                    dto.InstallmentDateFinish
+                );
+            }
+
+            entity.Update(
+                Enum.Parse<EventType>(dto.Type, true),
+                Enum.Parse<EventPeriod>(dto.Period, true),
+                dto.Value,
+                dto.Description,
+                inst,
+                Enum.Parse<Affirmation>(dto.AutoRealized, true),
+                Enum.Parse<Affirmation>(dto.Finished, true),
+                dto.AccountId,
+                dto.Due
+            );
+
+            await _repo.UpdateAsync(entity);
+            return EventMonthlyMapper.ToDto(entity);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (await _repo.GetByIdAsync(id) is null)
+                return false;
+
+            await _repo.DeleteAsync(id);
+            return true;
+        }
     }
 }

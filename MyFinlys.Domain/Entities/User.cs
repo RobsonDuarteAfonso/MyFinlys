@@ -38,7 +38,16 @@ public class User : Entity
             passwordVO
         );
     }
-    
+
+    public bool VerifyPassword(string plainText)
+        => Password.Verify(plainText);
+
+    public void ChangePassword(string newPlainText)
+    {
+        var newVO = Password.Create(newPlainText);
+        Password = newVO;
+    }    
+
     public void AddAccount(Account account)
     {
         _userAccounts.Add(UserAccount.Create(this.Id, account.Id));
@@ -47,5 +56,15 @@ public class User : Entity
     public IEnumerable<Account> GetAccounts()
     {
         return _userAccounts.Select(ua => ua.Account);
-    }    
+    }
+    
+    public void Update(string name, string email)
+{
+    Guard.AgainstLengthLessThan(name, 3, nameof(name));
+    var emailVO = Email.Create(email);
+
+    Name = name;
+    Email = Email.Create(emailVO);
+}
+
 }

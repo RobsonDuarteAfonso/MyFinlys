@@ -1,3 +1,4 @@
+// MyFinlys.Application/Services/BalanceService.cs
 using MyFinlys.Application.DTOs;
 using MyFinlys.Application.Services.Interfaces;
 using MyFinlys.Application.Services.Mappers;
@@ -13,7 +14,9 @@ public class BalanceService : IBalanceService
     private readonly IBalanceRepository _balanceRepository;
     private readonly IAccountRepository _accountRepository;
 
-    public BalanceService(IBalanceRepository balanceRepo, IAccountRepository accountRepo)
+    public BalanceService(
+        IBalanceRepository balanceRepo,
+        IAccountRepository accountRepo)
     {
         _balanceRepository = balanceRepo;
         _accountRepository = accountRepo;
@@ -34,9 +37,38 @@ public class BalanceService : IBalanceService
 
     public async Task<Guid> CreateAsync(Guid accountId, int year, Month month, decimal amount)
     {
+
+        var account = await _accountRepository.GetByIdAsync(accountId);
+        if (account is null)
+            throw new ArgumentException($"Account not found: {accountId}", nameof(accountId));
+
         var yearVO = Year.Create(year);
         var balance = Balance.Create(accountId, yearVO, month, amount);
         await _balanceRepository.AddAsync(balance);
         return balance.Id;
+    }
+
+    public async Task<BalanceDto?> UpdateAsync(Guid id, decimal amount)
+    {
+        var balance = await _balanceRepository.GetByIdAsync(id);
+        if (balance is null) return null;
+
+        var account = await _accountRepository.GetByIdAsync(balance.AccountId);
+        if (account is null)
+            throw new InvalidOperationException($"Associated account not found: {balance.AccountId}");
+
+
+        balance.UpdateAmount(amount);
+        await _balanceRepository.UpdateAsync(balance);
+        return BalanceMapper.ToDto(balance);
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var existing = await _balanceRepository.GetByIdAsync(id);
+        if (existing is null) return false;
+
+        await _balanceRepository.DeleteAsync(id);
+        return true;
     }
 }

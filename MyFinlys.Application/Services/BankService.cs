@@ -24,13 +24,36 @@ public class BankService : IBankService
     public async Task<BankDto?> GetByIdAsync(Guid id)
     {
         var bank = await _bankRepository.GetByIdAsync(id);
-        return bank is null ? null : BankMapper.ToDto(bank);
+        return bank is null
+            ? null
+            : BankMapper.ToDto(bank);
     }
 
-    public async Task<Guid> CreateAsync(string name)
+    public async Task<Guid> CreateAsync(BankCreateDto dto)
     {
-        var bank = Bank.Create(name);
-        await _bankRepository.AddAsync(bank);
-        return bank.Id;
+        var entity = Bank.Create(dto.Name);
+        await _bankRepository.AddAsync(entity);
+        return entity.Id;
+    }
+
+    public async Task<BankDto?> UpdateAsync(Guid id, BankUpdateDto dto)
+    {
+        var bank = await _bankRepository.GetByIdAsync(id);
+        if (bank is null)
+            return null;
+
+        bank.Update(dto.Name);
+        await _bankRepository.UpdateAsync(bank);
+        return BankMapper.ToDto(bank);
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var bank = await _bankRepository.GetByIdAsync(id);
+        if (bank is null)
+            return false;
+
+        await _bankRepository.DeleteAsync(id);
+        return true;
     }
 }

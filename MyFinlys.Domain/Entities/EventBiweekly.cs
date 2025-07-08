@@ -7,8 +7,7 @@ namespace MyFinlys.Domain.Entities;
 public class EventBiweekly : Event
 {
     public DayOfWeek DayOfWeek { get; private set; }
-    public DateTime StartDate { get; private set; }
-    
+    public DateTime  StartDate { get; private set; }
 
     private EventBiweekly() { }
 
@@ -28,8 +27,36 @@ public class EventBiweekly : Event
         ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         Guard.AgainstInvalidDate(startDate, nameof(startDate));
-                
-        DayOfWeek = dayOfWeek;
-        StartDate = startDate;
+
+        DayOfWeek  = dayOfWeek;
+        StartDate  = startDate;
+    }
+
+    public void Update(
+        EventType type,
+        EventPeriod period,
+        decimal value,
+        string description,
+        Installment? installment,
+        Affirmation autoRealized,
+        Affirmation finished,
+        Guid accountId,
+        DayOfWeek dayOfWeek,
+        DateTime startDate)
+    {
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
+        Guard.AgainstInvalidDate(startDate, nameof(startDate));
+
+        Type         = type;
+        Period       = period;
+        Value        = value;
+        Description  = description;
+        Installment  = installment;
+        AutoRealized = autoRealized;
+        Finished     = finished;
+        AccountId    = accountId;
+        DayOfWeek    = dayOfWeek;
+        StartDate    = startDate;
     }
 }

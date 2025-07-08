@@ -16,6 +16,8 @@ public static class EventBiweeklyMapper
             Description = e.Description,
             InstallmentTotal = e.Installment?.InstallmentTotal,
             InstallmentCurrent = e.Installment?.InstallmentCurrent,
+            InstallmentDateInitial = e.Installment?.DateInitial,
+            InstallmentDateFinish  = e.Installment?.DateFinish,
             AutoRealized = e.AutoRealized.ToString(),
             Finished = e.Finished.ToString(),
             AccountId = e.AccountId,

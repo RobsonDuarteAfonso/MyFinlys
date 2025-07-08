@@ -6,5 +6,7 @@ public interface IBankService
 {
     Task<IEnumerable<BankDto>> GetAllAsync();
     Task<BankDto?> GetByIdAsync(Guid id);
-    Task<Guid> CreateAsync(string name);
+    Task<Guid> CreateAsync(BankCreateDto dto);
+    Task<BankDto?> UpdateAsync(Guid id, BankUpdateDto dto);
+    Task<bool> DeleteAsync(Guid id);
 }

@@ -17,7 +17,13 @@ public class Bank : Entity
     public static Bank Create(string name)
     {
         Guard.AgainstLengthLessThan(name, 3, nameof(name));
-        
+
         return new Bank(name);
     }
+    
+    public void Update(string name)
+    {
+        Guard.AgainstLengthLessThan(name, 3, nameof(name));
+        Name = name;
+    }    
 }

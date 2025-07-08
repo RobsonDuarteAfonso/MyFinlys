@@ -10,7 +10,6 @@ namespace MyFinlys.Infrastructure.Mappings
         {
             builder.ToTable("UserAccounts");
 
-            // Chave composta
             builder.HasKey(ua => new { ua.UserId, ua.AccountId });
 
             builder.HasOne(ua => ua.User)

@@ -39,4 +39,44 @@ public class UserService : IUserService
         await _userRepository.AddAsync(user);
         return user.Id;
     }
+
+    public async Task<UserDto?> UpdateAsync(Guid id, UserUpdateDto dto)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user is null) return null;
+
+        user.Update(dto.Name, dto.Email);
+        await _userRepository.UpdateAsync(user);
+        return UserMapper.ToDto(user);
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var existing = await _userRepository.GetByIdAsync(id);
+        if (existing is null) return false;
+
+        await _userRepository.DeleteAsync(id);
+        return true;
+    }    
+
+    public async Task<bool> ValidateCredentialsAsync(string email, string password)
+    {
+        var user = await _userRepository.GetByEmailAsync(email);
+        if (user is null) return false;
+
+        return user.VerifyPassword(password);
+    }
+
+    public async Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
+    {
+        var user = await _userRepository.GetByIdAsync(userId);
+        if (user is null) return false;
+
+        if (!user.VerifyPassword(currentPassword))
+            return false;
+
+        user.ChangePassword(newPassword);
+        await _userRepository.UpdateAsync(user);
+        return true;
+    }    
 }

@@ -9,7 +9,6 @@ namespace MyFinlys.Infrastructure.Context
         {
         }
 
-        // Apenas declara os DbSets necessários
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Event> Events { get; set; }
@@ -20,7 +19,6 @@ namespace MyFinlys.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Aplica todos os mapeamentos via IEntityTypeConfiguration
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MyFinlysDbContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
