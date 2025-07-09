@@ -65,6 +65,7 @@ public class AccountService : IAccountService
         }
 
         await _accountRepository.AddAsync(account);
+        await _accountRepository.SaveChangesAsync();
         return AccountMapper.ToDetailDto(account);
     }
 
@@ -78,8 +79,9 @@ public class AccountService : IAccountService
             throw new ArgumentException("Invalid account type.", nameof(dto.Type));
 
         account.Update(dto.Number, parsedType, dto.BankId);
-        await _accountRepository.UpdateAsync(account);
 
+        await _accountRepository.UpdateAsync(account);
+        await _accountRepository.SaveChangesAsync();
         return AccountMapper.ToDetailDto(account);
     }
 
@@ -90,6 +92,7 @@ public class AccountService : IAccountService
             return false;
 
         await _accountRepository.DeleteAsync(id);
+        await _accountRepository.SaveChangesAsync();
         return true;
     }
 }

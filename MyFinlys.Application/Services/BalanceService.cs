@@ -44,7 +44,9 @@ public class BalanceService : IBalanceService
 
         var yearVO = Year.Create(year);
         var balance = Balance.Create(accountId, yearVO, month, amount);
+
         await _balanceRepository.AddAsync(balance);
+        await _balanceRepository.SaveChangesAsync();
         return balance.Id;
     }
 
@@ -57,9 +59,10 @@ public class BalanceService : IBalanceService
         if (account is null)
             throw new InvalidOperationException($"Associated account not found: {balance.AccountId}");
 
-
         balance.UpdateAmount(amount);
+
         await _balanceRepository.UpdateAsync(balance);
+        await _balanceRepository.SaveChangesAsync();
         return BalanceMapper.ToDto(balance);
     }
 
@@ -69,6 +72,7 @@ public class BalanceService : IBalanceService
         if (existing is null) return false;
 
         await _balanceRepository.DeleteAsync(id);
+        await _balanceRepository.SaveChangesAsync();
         return true;
     }
 }

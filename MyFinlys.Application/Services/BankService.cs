@@ -33,6 +33,7 @@ public class BankService : IBankService
     {
         var entity = Bank.Create(dto.Name);
         await _bankRepository.AddAsync(entity);
+        await _bankRepository.SaveChangesAsync();
         return entity.Id;
     }
 
@@ -44,6 +45,7 @@ public class BankService : IBankService
 
         bank.Update(dto.Name);
         await _bankRepository.UpdateAsync(bank);
+        await _bankRepository.SaveChangesAsync();
         return BankMapper.ToDto(bank);
     }
 
@@ -54,6 +56,7 @@ public class BankService : IBankService
             return false;
 
         await _bankRepository.DeleteAsync(id);
+        await _bankRepository.SaveChangesAsync();
         return true;
     }
 }

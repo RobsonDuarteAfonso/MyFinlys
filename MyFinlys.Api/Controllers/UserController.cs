@@ -1,4 +1,5 @@
 // MyFinlys.Api/Controllers/UserController.cs
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyFinlys.Application.DTOs;
 using MyFinlys.Application.Services.Interfaces;
@@ -42,6 +43,7 @@ public class UserController : ControllerBase
 
     // POST api/user
     [HttpPost]
+    [AllowAnonymous]
     public async Task<ActionResult<Guid>> Create([FromBody] UserCreateDto dto)
     {
         var id = await _userService.CreateAsync(dto.Name, dto.Email, dto.Password);

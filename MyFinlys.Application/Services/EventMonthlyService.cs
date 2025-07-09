@@ -10,14 +10,14 @@ namespace MyFinlys.Application.Services
 {
     public class EventMonthlyService : IEventMonthlyService
     {
-        private readonly IEventMonthlyRepository _repo;
-        public EventMonthlyService(IEventMonthlyRepository repo) => _repo = repo;
+        private readonly IEventMonthlyRepository _eventRepository;
+        public EventMonthlyService(IEventMonthlyRepository eventRepository) => _eventRepository = eventRepository;
 
         public async Task<IEnumerable<EventMonthlyDto>> GetAllAsync() =>
-            (await _repo.GetAllAsync()).Select(EventMonthlyMapper.ToDto);
+            (await _eventRepository.GetAllAsync()).Select(EventMonthlyMapper.ToDto);
 
         public async Task<EventMonthlyDto?> GetByIdAsync(Guid id) =>
-            (await _repo.GetByIdAsync(id)) is EventMonthly e
+            (await _eventRepository.GetByIdAsync(id)) is EventMonthly e
                 ? EventMonthlyMapper.ToDto(e)
                 : null;
 
@@ -47,13 +47,14 @@ namespace MyFinlys.Application.Services
                 dto.Due
             );
 
-            await _repo.AddAsync(entity);
+            await _eventRepository.AddAsync(entity);
+            await _eventRepository.SaveChangesAsync();
             return entity.Id;
         }
 
         public async Task<EventMonthlyDto?> UpdateAsync(Guid id, EventMonthlyDto dto)
         {
-            var entity = await _repo.GetByIdAsync(id);
+            var entity = await _eventRepository.GetByIdAsync(id);
             if (entity is null) return null;
 
             Installment? inst = null;
@@ -80,16 +81,18 @@ namespace MyFinlys.Application.Services
                 dto.Due
             );
 
-            await _repo.UpdateAsync(entity);
+            await _eventRepository.UpdateAsync(entity);
+            await _eventRepository.SaveChangesAsync();
             return EventMonthlyMapper.ToDto(entity);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            if (await _repo.GetByIdAsync(id) is null)
+            if (await _eventRepository.GetByIdAsync(id) is null)
                 return false;
 
-            await _repo.DeleteAsync(id);
+            await _eventRepository.DeleteAsync(id);
+            await _eventRepository.SaveChangesAsync();
             return true;
         }
     }

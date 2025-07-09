@@ -45,5 +45,8 @@ namespace MyFinlys.Infrastructure.Repositories
                 _dbSet.Remove(entity);
             }
         }
+
+        public virtual async Task SaveChangesAsync()
+            => await _context.SaveChangesAsync();
     }
 }

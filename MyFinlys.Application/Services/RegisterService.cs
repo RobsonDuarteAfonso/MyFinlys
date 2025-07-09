@@ -43,6 +43,7 @@ public class RegisterService : IRegisterService
         );
 
         await _repository.AddAsync(entity);
+        await _repository.SaveChangesAsync();
         return entity.Id;
     }
 
@@ -65,6 +66,7 @@ public class RegisterService : IRegisterService
         );
 
         await _repository.UpdateAsync(entity);
+        await _repository.SaveChangesAsync();
         return RegisterMapper.ToDto(entity);
     }
 
@@ -75,6 +77,7 @@ public class RegisterService : IRegisterService
             return false;
 
         await _repository.DeleteAsync(entity.Id);
+        await _repository.SaveChangesAsync();
         return true;
     }
 

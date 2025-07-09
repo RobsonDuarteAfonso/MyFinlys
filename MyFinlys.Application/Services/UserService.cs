@@ -37,6 +37,7 @@ public class UserService : IUserService
     {
         var user = User.Create(name, email, password);
         await _userRepository.AddAsync(user);
+        await _userRepository.SaveChangesAsync();
         return user.Id;
     }
 
@@ -47,6 +48,7 @@ public class UserService : IUserService
 
         user.Update(dto.Name, dto.Email);
         await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
         return UserMapper.ToDto(user);
     }
 
@@ -56,6 +58,7 @@ public class UserService : IUserService
         if (existing is null) return false;
 
         await _userRepository.DeleteAsync(id);
+        await _userRepository.SaveChangesAsync();
         return true;
     }    
 
