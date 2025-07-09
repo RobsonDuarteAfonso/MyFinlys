@@ -19,8 +19,8 @@ builder.Services.AddApplicationServices();
 
 // 5) Controllers
 builder.Services
-    .AddControllers()
-    /*options =>
+    .AddControllers(
+    options =>
 {
     // Creates a policy that requires an authenticated user
     var policy = new AuthorizationPolicyBuilder()
@@ -28,7 +28,7 @@ builder.Services
         .Build();
     // Applies this policy to **all** actions/controllers
     options.Filters.Add(new AuthorizeFilter(policy));
-})*/
+})
     .AddNewtonsoftJson();
 
 var app = builder.Build();
