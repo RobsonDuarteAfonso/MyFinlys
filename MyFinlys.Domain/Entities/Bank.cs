@@ -9,7 +9,7 @@ public class Bank : Entity
 
     private Bank() { }
 
-    private Bank(string name) : base()
+    private Bank(string name) : base(Guid.NewGuid(), DateTime.UtcNow, DateTime.UtcNow)
     {
         Name = name;
     }

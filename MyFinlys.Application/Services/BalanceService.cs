@@ -35,6 +35,27 @@ public class BalanceService : IBalanceService
         return balances.Select(BalanceMapper.ToDto);
     }
 
+    public async Task<PaginatedResult<BalanceDto>> GetByAccountPaginatedAsync(Guid accountId, PaginationParams @params)
+    {
+        @params.Validate();
+        var balances = await _balanceRepository.GetByAccountAsync(accountId);
+        var filteredBalances = balances.Where(b => b.AccountId == accountId).ToList();
+        var totalCount = filteredBalances.Count;
+        var items = filteredBalances
+            .Skip((@params.PageNumber - 1) * @params.PageSize)
+            .Take(@params.PageSize)
+            .Select(BalanceMapper.ToDto)
+            .ToList();
+
+        return new PaginatedResult<BalanceDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = @params.PageNumber,
+            PageSize = @params.PageSize
+        };
+    }
+
     public async Task<Guid> CreateAsync(Guid accountId, int year, Month month, decimal amount)
     {
 
@@ -60,6 +81,7 @@ public class BalanceService : IBalanceService
             throw new InvalidOperationException($"Associated account not found: {balance.AccountId}");
 
         balance.UpdateAmount(amount);
+        balance.SetUpdatedAt();
 
         await _balanceRepository.UpdateAsync(balance);
         await _balanceRepository.SaveChangesAsync();

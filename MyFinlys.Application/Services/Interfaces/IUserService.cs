@@ -7,6 +7,7 @@ public interface IUserService
     Task<UserDto?> GetByIdAsync(Guid id);
     Task<UserDto?> GetByEmailAsync(string email);
     Task<IEnumerable<UserDto>> GetAllAsync();
+    Task<PaginatedResult<UserDto>> GetAllPaginatedAsync(PaginationParams @params);
     Task<Guid> CreateAsync(string name, string email, string password);
     Task<UserDto?> UpdateAsync(Guid id, UserUpdateDto dto);
     Task<bool> DeleteAsync(Guid id);

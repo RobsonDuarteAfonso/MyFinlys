@@ -18,7 +18,7 @@ public class User : Entity
         string name,
         Email email,
         Password password
-    ) : base()
+    ) : base(Guid.NewGuid(), DateTime.UtcNow, DateTime.UtcNow)
     {
         Name = name;
         Email = email;

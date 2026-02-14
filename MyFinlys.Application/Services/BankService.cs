@@ -21,6 +21,28 @@ public class BankService : IBankService
         return banks.Select(BankMapper.ToDto);
     }
 
+    public async Task<PaginatedResult<BankDto>> GetAllPaginatedAsync(PaginationParams @params)
+    {
+        @params.Validate();
+        var allBanks = await _bankRepository.GetAllAsync();
+        var filteredBanks = allBanks.ToList();
+        var totalCount = filteredBanks.Count;
+        
+        var items = filteredBanks
+            .Skip((@params.PageNumber - 1) * @params.PageSize)
+            .Take(@params.PageSize)
+            .Select(b => BankMapper.ToDto(b))
+            .ToList();
+
+        return new PaginatedResult<BankDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = @params.PageNumber,
+            PageSize = @params.PageSize
+        };
+    }
+
     public async Task<BankDto?> GetByIdAsync(Guid id)
     {
         var bank = await _bankRepository.GetByIdAsync(id);
@@ -44,6 +66,7 @@ public class BankService : IBankService
             return null;
 
         bank.Update(dto.Name);
+        bank.SetUpdatedAt();
         await _bankRepository.UpdateAsync(bank);
         await _bankRepository.SaveChangesAsync();
         return BankMapper.ToDto(bank);

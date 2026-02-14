@@ -16,7 +16,7 @@ public class Account : Entity
 
     private Account() { }
 
-    private Account(string number, AccountType type, Guid bankId) : base()
+    private Account(string number, AccountType type, Guid bankId) : base(Guid.NewGuid(), DateTime.UtcNow, DateTime.UtcNow)
     {
         Number = number;
         Type = type;

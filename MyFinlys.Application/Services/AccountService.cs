@@ -47,6 +47,28 @@ public class AccountService : IAccountService
         return accounts.Select(AccountMapper.ToSummaryDto);
     }
 
+    public async Task<PaginatedResult<AccountSummaryDto>> GetAllPaginatedAsync(PaginationParams @params)
+    {
+        @params.Validate();
+        var allAccounts = await _accountRepository.GetAllAsync();
+        var filteredAccounts = allAccounts.ToList();
+        var totalCount = filteredAccounts.Count;
+        
+        var items = filteredAccounts
+            .Skip((@params.PageNumber - 1) * @params.PageSize)
+            .Take(@params.PageSize)
+            .Select(a => AccountMapper.ToSummaryDto(a))
+            .ToList();
+
+        return new PaginatedResult<AccountSummaryDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = @params.PageNumber,
+            PageSize = @params.PageSize
+        };
+    }
+
     public async Task<AccountDetailDto> CreateAsync(AccountCreateDto dto)
     {
         if (!Enum.TryParse<AccountType>(dto.Type, true, out var parsedType))
@@ -66,6 +88,12 @@ public class AccountService : IAccountService
 
         await _accountRepository.AddAsync(account);
         await _accountRepository.SaveChangesAsync();
+        
+        // Set the Bank navigation property for the mapper
+        var bankProperty = typeof(Account).GetProperty("Bank", 
+            System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+        bankProperty?.SetValue(account, bank);
+        
         return AccountMapper.ToDetailDto(account);
     }
 
@@ -79,6 +107,7 @@ public class AccountService : IAccountService
             throw new ArgumentException("Invalid account type.", nameof(dto.Type));
 
         account.Update(dto.Number, parsedType, dto.BankId);
+        account.SetUpdatedAt();
 
         await _accountRepository.UpdateAsync(account);
         await _accountRepository.SaveChangesAsync();

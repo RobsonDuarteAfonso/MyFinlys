@@ -2,8 +2,10 @@ using MyFinlys.Infrastructure.IoC;
 using MyFinlys.Infrastructure.Repositories;
 using MyFinlys.Application.Services;
 using MyFinlys.Application.Services.Interfaces;
+using MyFinlys.Application.Validators;
 using MyFinlys.Domain.Repositories;
 using MyFinlys.Api.Services;
+using FluentValidation;
 
 namespace MyFinlys.Api.Extensions
 {
@@ -21,6 +23,7 @@ namespace MyFinlys.Api.Extensions
             services.AddScoped<IEventWeeklyRepository, EventWeeklyRepository>();
             services.AddScoped<IEventMonthlyRepository, EventMonthlyRepository>();
             services.AddScoped<IEventBiweeklyRepository, EventBiweeklyRepository>();
+            services.AddScoped<IBalanceRepository, BalanceRepository>();
 
             return services;
         }
@@ -31,6 +34,7 @@ namespace MyFinlys.Api.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IBalanceService, BalanceService>();
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IEventWeeklyService, EventWeeklyService>();
             services.AddScoped<IEventMonthlyService, EventMonthlyService>();
@@ -38,6 +42,9 @@ namespace MyFinlys.Api.Extensions
 
             // AuthService
             services.AddScoped<JwtAuthService>();
+
+            // FluentValidation
+            services.AddValidatorsFromAssemblyContaining<LoginRequestDtoValidator>();
 
             return services;
         }

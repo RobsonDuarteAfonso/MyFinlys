@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using MyFinlys.Api.Extensions;
+using MyFinlys.Api.Middleware;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,21 +19,28 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 // 4) Servies and application + AuthService
 builder.Services.AddApplicationServices();
 
-// 5) Controllers
+// 5) FluentValidation
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+
+// 6) Controllers with authorization
 builder.Services
     .AddControllers(
     options =>
-{
-    // Creates a policy that requires an authenticated user
-    var policy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-    // Applies this policy to **all** actions/controllers
-    options.Filters.Add(new AuthorizeFilter(policy));
-})
+    {
+        // Creates a policy that requires an authenticated user
+        var policy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+        // Applies this policy to **all** actions/controllers
+        options.Filters.Add(new AuthorizeFilter(policy));
+    })
     .AddNewtonsoftJson();
 
 var app = builder.Build();
+
+// Error handling middleware
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

@@ -33,6 +33,28 @@ public class UserService : IUserService
         return users.Select(UserMapper.ToDto);
     }
 
+    public async Task<PaginatedResult<UserDto>> GetAllPaginatedAsync(PaginationParams @params)
+    {
+        @params.Validate();
+        var allUsers = await _userRepository.GetAllAsync();
+        var filteredUsers = allUsers.ToList();
+        var totalCount = filteredUsers.Count;
+        
+        var items = filteredUsers
+            .Skip((@params.PageNumber - 1) * @params.PageSize)
+            .Take(@params.PageSize)
+            .Select(UserMapper.ToDto)
+            .ToList();
+
+        return new PaginatedResult<UserDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = @params.PageNumber,
+            PageSize = @params.PageSize
+        };
+    }
+
     public async Task<Guid> CreateAsync(string name, string email, string password)
     {
         var user = User.Create(name, email, password);
@@ -47,6 +69,7 @@ public class UserService : IUserService
         if (user is null) return null;
 
         user.Update(dto.Name, dto.Email);
+        user.SetUpdatedAt();
         await _userRepository.UpdateAsync(user);
         await _userRepository.SaveChangesAsync();
         return UserMapper.ToDto(user);
@@ -79,7 +102,9 @@ public class UserService : IUserService
             return false;
 
         user.ChangePassword(newPassword);
+        user.SetUpdatedAt();
         await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
         return true;
     }    
 }

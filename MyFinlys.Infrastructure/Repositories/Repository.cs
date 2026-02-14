@@ -18,12 +18,16 @@ namespace MyFinlys.Infrastructure.Repositories
 
         public virtual async Task<T?> GetByIdAsync(Guid id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet
+                .Where(x => !x.IsDeleted)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet
+                .Where(x => !x.IsDeleted)
+                .ToListAsync();
         }
 
         public virtual async Task AddAsync(T entity)
@@ -42,7 +46,8 @@ namespace MyFinlys.Infrastructure.Repositories
             var entity = await _dbSet.FindAsync(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
+                entity.SoftDelete();
+                _dbSet.Update(entity);
             }
         }
 

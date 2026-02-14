@@ -25,13 +25,18 @@ public class JwtAuthService
         var valid = await _userService.ValidateCredentialsAsync(dto.Email, dto.Password);
         if (!valid) return null;
 
+        var user = await _userService.GetByEmailAsync(dto.Email);
+        if (user is null) return null;
+
         var key     = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
         var creds   = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expires = DateTime.UtcNow.AddMinutes(_jwt.DurationMinutes);
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, dto.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Email, dto.Email),
+            new Claim("UserId", user.Id.ToString()),
         };
 
         var token = new JwtSecurityToken(
