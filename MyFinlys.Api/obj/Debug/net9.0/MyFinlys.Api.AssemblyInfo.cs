@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyFinlys.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97dd1f85051b61c5ae451a1f61503dd7cd236642")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ab35bca0e2a46c8d46363535ea50dc9ac860728")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyFinlys.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyFinlys.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
