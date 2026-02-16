@@ -12,7 +12,7 @@ namespace MyFinlys.Infrastructure.Repositories
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email.Value == email);
+                .FirstOrDefaultAsync(u => u.Email.Value.ToLower() == email.ToLower());
         }
 
         public async Task<IEnumerable<Account>> GetAccountsAsync(Guid userId)

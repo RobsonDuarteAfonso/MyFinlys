@@ -50,6 +50,7 @@ public class JwtAuthService
         return new LoginResponseDto
         {
             Token     = new JwtSecurityTokenHandler().WriteToken(token),
+            Name      = user.Name,
             ExpiresAt = expires
         };
     }

@@ -19,6 +19,15 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 // 4) Servies and application + AuthService
 builder.Services.AddApplicationServices();
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 // 5) FluentValidation
 builder.Services.AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
@@ -49,6 +58,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

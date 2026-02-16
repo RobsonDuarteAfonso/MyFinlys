@@ -16,7 +16,7 @@ namespace MyFinlys.Domain.ValueObjects
         public static Email Create(string value)
         {
             EmailValidator.Validate(value);
-            return new Email(value);
+            return new Email(value.ToLower().Trim());
         }
 
         public static implicit operator string(Email email) => email.Value;
