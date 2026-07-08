@@ -22,7 +22,9 @@ public static class EventBiweeklyMapper
             Finished = e.Finished.ToString(),
             AccountId = e.AccountId,
             DayOfWeek = e.DayOfWeek.ToString(),
-            StartDate = e.StartDate
+            StartDate = e.StartDate,
+            Category = e.Category.ToString(),
+            EndDate = e.EndDate
         };
     }
 }

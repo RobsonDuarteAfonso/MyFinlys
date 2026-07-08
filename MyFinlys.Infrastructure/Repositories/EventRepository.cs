@@ -12,7 +12,7 @@ namespace MyFinlys.Infrastructure.Repositories
         public async Task<IEnumerable<Event>> GetByAccountIdAsync(Guid accountId)
         {
             return await _context.Events
-                .Where(e => e.AccountId == accountId)
+                .Where(e => e.AccountId == accountId && !e.IsDeleted)
                 .ToListAsync();
         }
     }

@@ -44,7 +44,9 @@ namespace MyFinlys.Application.Services
                 Enum.Parse<Affirmation>(dto.AutoRealized, true),
                 Enum.Parse<Affirmation>(dto.Finished, true),
                 dto.AccountId,
-                Enum.Parse<DayOfWeek>(dto.DayOfWeek, true)
+                Enum.Parse<Category>(dto.Category, true),
+                Enum.Parse<DayOfWeek>(dto.DayOfWeek, true),
+                dto.EndDate
             );
 
             await _eventRepository.AddAsync(entity);
@@ -78,7 +80,9 @@ namespace MyFinlys.Application.Services
                 Enum.Parse<Affirmation>(dto.AutoRealized, true),
                 Enum.Parse<Affirmation>(dto.Finished, true),
                 dto.AccountId,
-                Enum.Parse<DayOfWeek>(dto.DayOfWeek, true)
+                Enum.Parse<Category>(dto.Category, true),
+                Enum.Parse<DayOfWeek>(dto.DayOfWeek, true),
+                dto.EndDate
             );
 
             await _eventRepository.UpdateAsync(entity);

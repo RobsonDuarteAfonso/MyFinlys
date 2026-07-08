@@ -1,5 +1,6 @@
 using MyFinlys.Infrastructure.IoC; 
 using MyFinlys.Infrastructure.Repositories;
+using MyFinlys.Infrastructure.Services;
 using MyFinlys.Application.Services;
 using MyFinlys.Application.Services.Interfaces;
 using MyFinlys.Application.Validators;
@@ -23,7 +24,14 @@ namespace MyFinlys.Api.Extensions
             services.AddScoped<IEventWeeklyRepository, EventWeeklyRepository>();
             services.AddScoped<IEventMonthlyRepository, EventMonthlyRepository>();
             services.AddScoped<IEventBiweeklyRepository, EventBiweeklyRepository>();
+            services.AddScoped<IEventQuarterlyRepository, EventQuarterlyRepository>();
+            services.AddScoped<IEventSemiAnnualRepository, EventSemiAnnualRepository>();
+            services.AddScoped<IEventAnnualRepository, EventAnnualRepository>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
+
+            // Email service
+            services.Configure<EmailSettings>(config.GetSection("EmailSettings"));
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }
@@ -36,9 +44,16 @@ namespace MyFinlys.Api.Extensions
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IBalanceService, BalanceService>();
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<ICardPurchaseService, CardPurchaseService>();
+            services.AddScoped<ICreditCardService, CreditCardService>();
             services.AddScoped<IEventWeeklyService, EventWeeklyService>();
             services.AddScoped<IEventMonthlyService, EventMonthlyService>();
             services.AddScoped<IEventBiweeklyService, EventBiweeklyService>();
+            services.AddScoped<IEventQuarterlyService, EventQuarterlyService>();
+            services.AddScoped<IEventSemiAnnualService, EventSemiAnnualService>();
+            services.AddScoped<IEventAnnualService, EventAnnualService>();
+            services.AddScoped<IAccountPermissionService, AccountPermissionService>();
+            services.AddScoped<ICardPlanService, CardPlanService>();
 
             // AuthService
             services.AddScoped<JwtAuthService>();

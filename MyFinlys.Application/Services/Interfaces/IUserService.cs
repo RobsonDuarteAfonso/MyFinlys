@@ -8,9 +8,11 @@ public interface IUserService
     Task<UserDto?> GetByEmailAsync(string email);
     Task<IEnumerable<UserDto>> GetAllAsync();
     Task<PaginatedResult<UserDto>> GetAllPaginatedAsync(PaginationParams @params);
-    Task<Guid> CreateAsync(string name, string email, string password);
+    Task<Guid> CreateAsync(string name, string email, string password, string? avatar = null);
     Task<UserDto?> UpdateAsync(Guid id, UserUpdateDto dto);
     Task<bool> DeleteAsync(Guid id);
     Task<bool> ValidateCredentialsAsync(string email, string password);
     Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword);
+    Task<bool> SetPasswordResetTokenAsync(string email, string token, DateTime expiry);
+    Task<bool> ResetPasswordByTokenAsync(string token, string newPassword);
 }

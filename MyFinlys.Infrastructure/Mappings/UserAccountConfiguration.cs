@@ -12,6 +12,10 @@ namespace MyFinlys.Infrastructure.Mappings
 
             builder.HasKey(ua => new { ua.UserId, ua.AccountId });
 
+            builder.Property(ua => ua.AccessLevel)
+                   .HasConversion<string>()
+                   .IsRequired();
+
             builder.HasOne(ua => ua.User)
                    .WithMany(u => u.UserAccounts)
                    .HasForeignKey(ua => ua.UserId)

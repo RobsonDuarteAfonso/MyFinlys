@@ -27,7 +27,14 @@ namespace MyFinlys.Infrastructure.IoC
             services.AddScoped<IEventWeeklyRepository, EventWeeklyRepository>();
             services.AddScoped<IEventMonthlyRepository, EventMonthlyRepository>();
             services.AddScoped<IEventBiweeklyRepository, EventBiweeklyRepository>();
+            services.AddScoped<IEventQuarterlyRepository, EventQuarterlyRepository>();
+            services.AddScoped<IEventSemiAnnualRepository, EventSemiAnnualRepository>();
+            services.AddScoped<IEventAnnualRepository, EventAnnualRepository>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
+            services.AddScoped<ICardPurchaseRepository, CardPurchaseRepository>();
+            services.AddScoped<ICardInstallmentRepository, CardInstallmentRepository>();
+            services.AddScoped<ICreditCardRepository, CreditCardRepository>();
+            services.AddScoped<ICardPlanRepository, CardPlanRepository>();
 
             return services;
         }

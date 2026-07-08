@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyFinlys.Domain.Entities;
+using MyFinlys.Domain.Enums;
 
 namespace MyFinlys.Infrastructure.Mappings
 {
@@ -37,6 +38,30 @@ namespace MyFinlys.Infrastructure.Mappings
                         .IsRequired()
                         .HasMaxLength(100);
             });
+
+            builder.Property(u => u.Avatar)
+                   .HasMaxLength(200)
+                   .IsRequired(false);
+
+            builder.Property(u => u.PasswordResetToken)
+                   .HasMaxLength(256)
+                   .IsRequired(false);
+
+            builder.Property(u => u.PasswordResetTokenExpiry)
+                   .IsRequired(false);
+
+            builder.Property(u => u.Type)
+                   .IsRequired()
+                   .HasDefaultValue(UserType.User);
+
+            builder.Property(u => u.Phone)
+                   .HasMaxLength(20)
+                   .IsRequired(false);
+
+            builder.Property(u => u.PreferredLanguage)
+                   .HasMaxLength(10)
+                   .IsRequired()
+                   .HasDefaultValue("en");
 
             builder.HasMany(u => u.UserAccounts)
                    .WithOne(ua => ua.User)

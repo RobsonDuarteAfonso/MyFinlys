@@ -20,17 +20,19 @@ public class EventBiweekly : Event
         Affirmation autoRealized,
         Affirmation finished,
         Guid accountId,
+        Category category,
         DayOfWeek dayOfWeek,
-        DateTime startDate
-    ) : base(type, period, value, description, installment, autoRealized, finished, accountId)
+        DateTime startDate,
+        DateTime? endDate = null
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         Guard.AgainstInvalidDate(startDate, nameof(startDate));
 
         DayOfWeek  = dayOfWeek;
         StartDate  = startDate;
-    }
+     }
 
     public void Update(
         EventType type,
@@ -41,10 +43,12 @@ public class EventBiweekly : Event
         Affirmation autoRealized,
         Affirmation finished,
         Guid accountId,
+        Category category,
         DayOfWeek dayOfWeek,
-        DateTime startDate)
+        DateTime startDate,
+        DateTime? endDate = null)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         Guard.AgainstInvalidDate(startDate, nameof(startDate));
 
@@ -56,7 +60,9 @@ public class EventBiweekly : Event
         AutoRealized = autoRealized;
         Finished     = finished;
         AccountId    = accountId;
+        Category     = category;
         DayOfWeek    = dayOfWeek;
         StartDate    = startDate;
+        EndDate      = endDate;
     }
 }

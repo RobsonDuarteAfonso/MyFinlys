@@ -10,5 +10,7 @@ public class RegisterUpdateDto
     public string Month { get; set; } = default!;
     public int Week { get; set; }
     public string Realized { get; set; } = default!;
-    public Guid EventId { get; set; }
+    public Guid? EventId { get; set; }
+    public Guid AccountId { get; set; }
+    public string Category { get; set; } = default!;
 }

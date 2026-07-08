@@ -40,6 +40,14 @@ namespace MyFinlys.Infrastructure.Mappings
                    .HasConversion<string>()
                    .IsRequired();
 
+            builder.Property(e => e.Category)
+                   .HasConversion<string>()
+                   .IsRequired();
+
+            builder.Property(e => e.EndDate)
+                   .HasColumnName("EndDate")
+                   .IsRequired(false);
+
             builder.OwnsOne(e => e.Installment, installment =>
             {
                 installment.Property(i => i.InstallmentTotal)
@@ -72,17 +80,10 @@ namespace MyFinlys.Infrastructure.Mappings
             builder.HasDiscriminator<EventPeriod>("Period")
                    .HasValue<EventWeekly>(EventPeriod.Weekly)
                    .HasValue<EventMonthly>(EventPeriod.Monthly)
-                   .HasValue<EventBiweekly>(EventPeriod.Biweekly);
-
-            builder.Property<DayOfWeek>(nameof(EventWeekly.DayOfWeek))
-                   .HasConversion<string>()
-                   .HasColumnName("DayOfWeek");
-
-            builder.Property<DateTime>(nameof(EventBiweekly.StartDate))
-                   .HasColumnName("StartDate");
-
-            builder.Property<DateTime>(nameof(EventMonthly.Due))
-                   .HasColumnName("Due");
+                   .HasValue<EventBiweekly>(EventPeriod.Biweekly)
+                   .HasValue<EventQuarterly>(EventPeriod.Quarterly)
+                   .HasValue<EventSemiAnnual>(EventPeriod.SemiAnnual)
+                   .HasValue<EventAnnual>(EventPeriod.Annual);
         }
     }
 }

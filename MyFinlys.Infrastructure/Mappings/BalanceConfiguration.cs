@@ -38,6 +38,10 @@ namespace MyFinlys.Infrastructure.Mappings
             builder.Property(b => b.Amount)
                    .HasColumnType("decimal(18,2)")
                    .IsRequired();
+
+            builder.Property(b => b.IsClosed)
+                   .IsRequired()
+                   .HasDefaultValue(false);
         }
     }
 }

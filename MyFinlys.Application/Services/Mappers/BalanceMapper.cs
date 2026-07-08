@@ -13,7 +13,8 @@ public static class BalanceMapper
             Year = balance.Year,
             Month = balance.Month.ToString(),
             Amount = balance.Amount,
-            AccountId = balance.AccountId
+            AccountId = balance.AccountId,
+            IsClosed = balance.IsClosed
         };
     }
 }

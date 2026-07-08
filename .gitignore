@@ -1,0 +1,35 @@
+## Ignore Visual Studio/IDE temporary files, build results, and user files
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Re]leases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# IDE-specific directories
+.vs/
+.idea/
+.vscode/
+
+# System and miscellaneous
+.DS_Store
+Thumbs.db
+*.log

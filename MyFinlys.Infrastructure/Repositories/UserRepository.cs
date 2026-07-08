@@ -23,5 +23,12 @@ namespace MyFinlys.Infrastructure.Repositories
                 .Select(ua => ua.Account)
                 .ToListAsync();
         }
+
+        public async Task<User?> GetByResetTokenAsync(string token)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.PasswordResetToken == token
+                                       && u.PasswordResetTokenExpiry > DateTime.UtcNow);
+        }
     }
 }

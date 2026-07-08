@@ -44,9 +44,27 @@ public class Account : Entity
     }
 
     
-    public void AddUser(User user)
+    public void AddUser(User user, AccessLevel accessLevel = AccessLevel.Owner)
     {
-        _userAccounts.Add(UserAccount.Create(user.Id, this.Id));
+        _userAccounts.Add(UserAccount.Create(user.Id, this.Id, accessLevel));
+    }
+
+    public void RemoveUser(Guid userId)
+    {
+        var existing = _userAccounts.FirstOrDefault(ua => ua.UserId == userId);
+        if (existing != null)
+        {
+            _userAccounts.Remove(existing);
+        }
+    }
+
+    public void UpdateUserAccess(Guid userId, AccessLevel accessLevel)
+    {
+        var existing = _userAccounts.FirstOrDefault(ua => ua.UserId == userId);
+        if (existing != null)
+        {
+            existing.UpdateAccessLevel(accessLevel);
+        }
     }
 
     public void AddBalance(Balance balance)

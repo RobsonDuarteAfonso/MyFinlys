@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyFinlys.Domain.Entities;
+using MyFinlys.Domain.Enums;
 
 namespace MyFinlys.Infrastructure.Mappings
 {
@@ -41,9 +42,25 @@ namespace MyFinlys.Infrastructure.Mappings
                    .HasConversion<string>()
                    .IsRequired();
 
+            builder.Property(r => r.Category)
+                   .HasConversion<string>()
+                   .IsRequired();
+
+            builder.Property(r => r.EventId)
+                   .IsRequired(false);
+
             builder.HasOne(r => r.Event)
                    .WithMany()
                    .HasForeignKey(r => r.EventId)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(r => r.AccountId)
+                   .IsRequired();
+
+            builder.HasOne(r => r.Account)
+                   .WithMany()
+                   .HasForeignKey(r => r.AccountId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

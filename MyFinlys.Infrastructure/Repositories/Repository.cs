@@ -19,6 +19,7 @@ namespace MyFinlys.Infrastructure.Repositories
         public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet
+                .AsTracking()
                 .Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -37,7 +38,11 @@ namespace MyFinlys.Infrastructure.Repositories
 
         public virtual async Task UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
+            var entry = _context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbSet.Update(entity);
+            }
             await Task.CompletedTask;
         }
 

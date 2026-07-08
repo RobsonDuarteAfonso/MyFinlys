@@ -12,13 +12,20 @@ public static class UserMapper
             Id = user.Id,
             Name = user.Name,
             Email = user.Email.Value,
-            Accounts = user.UserAccounts.Select(ua => new AccountSummaryDto
-            {
-                Id = ua.Account.Id,
-                Number = ua.Account.Number,
-                Type = ua.Account.Type.ToString(),
-                BankName = ua.Account.Bank.Name
-            }).ToList()
+            Avatar = user.Avatar,
+            Type = (int)user.Type,
+            Phone = user.Phone,
+            PreferredLanguage = user.PreferredLanguage,
+            Accounts = (user.UserAccounts ?? [])
+                .Where(ua => ua.Account != null && ua.Account.Bank != null)
+                .Select(ua => new AccountSummaryDto
+                {
+                    Id = ua.Account.Id,
+                    Number = ua.Account.Number,
+                    Type = ua.Account.Type.ToString(),
+                    BankName = ua.Account.Bank.Name,
+                    AccessLevel = ua.AccessLevel.ToString()
+                }).ToList()
         };
     }
 }

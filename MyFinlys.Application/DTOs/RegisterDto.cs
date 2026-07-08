@@ -11,5 +11,7 @@ public class RegisterDto
     public string Month { get; set; } = null!;
     public int Week { get; set; }
     public string Realized { get; set; } = null!;
-    public Guid EventId { get; set; }
+    public Guid? EventId { get; set; }
+    public Guid AccountId { get; set; }
+    public string Category { get; set; } = null!;
 }

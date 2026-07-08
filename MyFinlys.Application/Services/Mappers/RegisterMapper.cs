@@ -18,7 +18,9 @@ public static class RegisterMapper
             Month = register.Month.ToString(),
             Week = register.Week,
             Realized = register.Realized.ToString(),
-            EventId = register.EventId
+            EventId = register.EventId,
+            AccountId = register.AccountId,
+            Category = register.Category.ToString()
         };
     }
 }

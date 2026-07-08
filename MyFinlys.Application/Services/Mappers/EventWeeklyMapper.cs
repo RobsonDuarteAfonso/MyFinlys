@@ -21,7 +21,9 @@ public static class EventWeeklyMapper
             AutoRealized = e.AutoRealized.ToString(),
             Finished = e.Finished.ToString(),
             AccountId = e.AccountId,
-            DayOfWeek = e.DayOfWeek.ToString()
+            DayOfWeek = e.DayOfWeek.ToString(),
+            Category = e.Category.ToString(),
+            EndDate = e.EndDate
         };
     }
 }

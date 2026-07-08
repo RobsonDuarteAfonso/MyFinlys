@@ -55,9 +55,13 @@ public class UserService : IUserService
         };
     }
 
-    public async Task<Guid> CreateAsync(string name, string email, string password)
+    public async Task<Guid> CreateAsync(string name, string email, string password, string? avatar = null)
     {
         var user = User.Create(name, email, password);
+        if (avatar != null)
+        {
+            user.UpdateAvatar(avatar);
+        }
         await _userRepository.AddAsync(user);
         await _userRepository.SaveChangesAsync();
         return user.Id;
@@ -68,7 +72,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(id);
         if (user is null) return null;
 
-        user.Update(dto.Name, dto.Email);
+        user.Update(dto.Name, dto.Email, dto.Avatar, dto.Phone, dto.PreferredLanguage);
         user.SetUpdatedAt();
         await _userRepository.UpdateAsync(user);
         await _userRepository.SaveChangesAsync();
@@ -106,5 +110,29 @@ public class UserService : IUserService
         await _userRepository.UpdateAsync(user);
         await _userRepository.SaveChangesAsync();
         return true;
-    }    
+    }
+
+    public async Task<bool> SetPasswordResetTokenAsync(string email, string token, DateTime expiry)
+    {
+        var user = await _userRepository.GetByEmailAsync(email);
+        if (user is null) return false;
+
+        user.SetPasswordResetToken(token, expiry);
+        user.SetUpdatedAt();
+        await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> ResetPasswordByTokenAsync(string token, string newPassword)
+    {
+        var user = await _userRepository.GetByResetTokenAsync(token);
+        if (user is null || !user.IsResetTokenValid(token)) return false;
+
+        user.ResetPassword(newPassword);
+        user.SetUpdatedAt();
+        await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
+        return true;
+    }
 }

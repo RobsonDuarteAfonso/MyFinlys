@@ -13,8 +13,11 @@ public class Register : Entity
     public Month Month { get; private set; }
     public int Week { get; private set; }
     public Affirmation Realized { get; private set; }
-    public Guid EventId { get; private set; }
-    public Event Event { get; private set; } = null!;
+    public Guid? EventId { get; private set; }
+    public Event? Event { get; private set; }
+    public Guid AccountId { get; private set; }
+    public Account Account { get; private set; } = null!;
+    public Category Category { get; private set; }
 
     private Register() { }
 
@@ -27,7 +30,9 @@ public class Register : Entity
         Month month,
         int week,
         Affirmation realized,
-        Guid eventId
+        Guid? eventId,
+        Guid accountId,
+        Category category
     ) : base()
     {
         Due = due;
@@ -39,6 +44,8 @@ public class Register : Entity
         Week = week;
         Realized = realized;
         EventId = eventId;
+        AccountId = accountId;
+        Category = category;
     }
 
     public static Register Create(
@@ -50,20 +57,27 @@ public class Register : Entity
         Month month,
         int week,
         Affirmation realized,
-        Guid eventId
+        Guid? eventId,
+        Guid accountId,
+        Category category
     )
     {
         Guard.AgainstInvalidDate(due, nameof(due));
         Guard.AgainstInvalidEnumValue(eventType, nameof(eventType));
-        Guard.AgainstNegativeOrZero(installmentCurrent, nameof(installmentCurrent));
+        Guard.AgainstNegative(installmentCurrent, nameof(installmentCurrent));
         Guard.AgainstNegativeOrZero(value, nameof(value));
         Guard.AgainstNullOrEmpty(subdescription, nameof(subdescription));
         Guard.AgainstInvalidEnumValue(month, nameof(month));
-        Guard.AgainstValueNotInRange(week, 1, 5, nameof(week));
+        Guard.AgainstValueNotInRange(week, 1, 6, nameof(week));
         Guard.AgainstInvalidEnumValue(realized, nameof(realized));
-        Guard.AgainstEmptyGuid(eventId, nameof(eventId));
+        if (eventId.HasValue)
+        {
+            Guard.AgainstEmptyGuid(eventId.Value, nameof(eventId));
+        }
+        Guard.AgainstEmptyGuid(accountId, nameof(accountId));
+        Guard.AgainstInvalidEnumValue(category, nameof(category));
 
-        return new Register(due, eventType, installmentCurrent, value, subdescription, month, week, realized, eventId);
+        return new Register(due, eventType, installmentCurrent, value, subdescription, month, week, realized, eventId, accountId, category);
     }
     
     public void Update(
@@ -75,17 +89,24 @@ public class Register : Entity
         Month month,
         int week,
         Affirmation realized,
-        Guid eventId)
+        Guid? eventId,
+        Guid accountId,
+        Category category)
     {
         Guard.AgainstInvalidDate(due, nameof(due));
         Guard.AgainstInvalidEnumValue(eventType, nameof(eventType));
-        Guard.AgainstNegativeOrZero(installmentCurrent, nameof(installmentCurrent));
+        Guard.AgainstNegative(installmentCurrent, nameof(installmentCurrent));
         Guard.AgainstNegativeOrZero(value, nameof(value));
         Guard.AgainstNullOrEmpty(subdescription, nameof(subdescription));
         Guard.AgainstInvalidEnumValue(month, nameof(month));
-        Guard.AgainstValueNotInRange(week, 1, 5, nameof(week));
+        Guard.AgainstValueNotInRange(week, 1, 6, nameof(week));
         Guard.AgainstInvalidEnumValue(realized, nameof(realized));
-        Guard.AgainstEmptyGuid(eventId, nameof(eventId));
+        if (eventId.HasValue)
+        {
+            Guard.AgainstEmptyGuid(eventId.Value, nameof(eventId));
+        }
+        Guard.AgainstEmptyGuid(accountId, nameof(accountId));
+        Guard.AgainstInvalidEnumValue(category, nameof(category));
 
         Due = due;
         EventType = eventType;
@@ -96,6 +117,13 @@ public class Register : Entity
         Week = week;
         Realized = realized;
         EventId = eventId;
+        AccountId = accountId;
+        Category = category;
+    }
+
+    public void MarkRealized()
+    {
+        Realized = Affirmation.Yes;
     }
 
 }

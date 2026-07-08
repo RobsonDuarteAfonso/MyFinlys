@@ -9,10 +9,12 @@ namespace MyFinlys.Application.Services;
 public class BankService : IBankService
 {
     private readonly IBankRepository _bankRepository;
+    private readonly IAccountRepository _accountRepository;
 
-    public BankService(IBankRepository bankRepository)
+    public BankService(IBankRepository bankRepository, IAccountRepository accountRepository)
     {
         _bankRepository = bankRepository;
+        _accountRepository = accountRepository;
     }
 
     public async Task<IEnumerable<BankDto>> GetAllAsync()
@@ -77,6 +79,12 @@ public class BankService : IBankService
         var bank = await _bankRepository.GetByIdAsync(id);
         if (bank is null)
             return false;
+
+        var accounts = await _accountRepository.GetAllAsync();
+        if (accounts.Any(a => a.BankId == id && !a.IsDeleted))
+        {
+            throw new System.InvalidOperationException("Cannot delete bank because there are active accounts linked to it.");
+        }
 
         await _bankRepository.DeleteAsync(id);
         await _bankRepository.SaveChangesAsync();

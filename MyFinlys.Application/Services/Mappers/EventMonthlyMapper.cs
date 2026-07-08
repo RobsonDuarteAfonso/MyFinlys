@@ -21,7 +21,9 @@ public static class EventMonthlyMapper
             AutoRealized = e.AutoRealized.ToString(),
             Finished = e.Finished.ToString(),
             AccountId = e.AccountId,
-            Due = e.Due
+            Due = e.Due,
+            Category = e.Category.ToString(),
+            EndDate = e.EndDate
         };
     }
 }

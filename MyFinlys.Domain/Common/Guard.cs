@@ -47,7 +47,7 @@ public static class Guard
     public static void AgainstValueNotInRange(int value, int min, int max, string paramName)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(paramName, $"Value must be between {min} and {max}.");
+            throw new ArgumentOutOfRangeException(paramName, $"Value must be between {min} and {max}. Actual value was: {value}");
     }
 
     public static void AgainstDateEarlierThan(DateTime? first, DateTime? second, string message)

@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<Guid>> Create([FromBody] UserCreateDto dto)
     {
-        var id = await _userService.CreateAsync(dto.Name, dto.Email, dto.Password);
+        var id = await _userService.CreateAsync(dto.Name, dto.Email, dto.Password, dto.Avatar);
         return CreatedAtAction(nameof(GetById), new { id }, id);
     }
 

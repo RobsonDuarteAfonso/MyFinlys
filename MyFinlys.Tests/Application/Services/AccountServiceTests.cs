@@ -12,6 +12,9 @@ public class AccountServiceTests
     private readonly Mock<IAccountRepository> _mockAccountRepository;
     private readonly Mock<IBankRepository> _mockBankRepository;
     private readonly Mock<IUserRepository> _mockUserRepository;
+    private readonly Mock<IEventRepository> _mockEventRepository;
+    private readonly Mock<IRegisterRepository> _mockRegisterRepository;
+    private readonly Mock<ICreditCardRepository> _mockCreditCardRepository;
     private readonly AccountService _accountService;
 
     public AccountServiceTests()
@@ -19,11 +22,17 @@ public class AccountServiceTests
         _mockAccountRepository = new Mock<IAccountRepository>();
         _mockBankRepository = new Mock<IBankRepository>();
         _mockUserRepository = new Mock<IUserRepository>();
+        _mockEventRepository = new Mock<IEventRepository>();
+        _mockRegisterRepository = new Mock<IRegisterRepository>();
+        _mockCreditCardRepository = new Mock<ICreditCardRepository>();
         
         _accountService = new AccountService(
             _mockAccountRepository.Object,
             _mockBankRepository.Object,
-            _mockUserRepository.Object
+            _mockUserRepository.Object,
+            _mockEventRepository.Object,
+            _mockRegisterRepository.Object,
+            _mockCreditCardRepository.Object
         );
     }
 
@@ -132,6 +141,13 @@ public class AccountServiceTests
             .Returns(Task.CompletedTask);
         _mockAccountRepository.Setup(r => r.SaveChangesAsync())
             .Returns(Task.CompletedTask);
+
+        _mockEventRepository.Setup(r => r.GetByAccountIdAsync(accountId))
+            .ReturnsAsync(new List<Event>());
+        _mockRegisterRepository.Setup(r => r.GetByAccountIdAsync(accountId))
+            .ReturnsAsync(new List<Register>());
+        _mockCreditCardRepository.Setup(r => r.GetByAccountAsync(accountId))
+            .ReturnsAsync(new List<CreditCard>());
 
         // Act
         var result = await _accountService.DeleteAsync(accountId);

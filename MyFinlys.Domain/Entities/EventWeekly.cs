@@ -19,10 +19,12 @@ public class EventWeekly : Event
         Affirmation autoRealized,
         Affirmation finished,
         Guid accountId,
-        DayOfWeek dayOfWeek
-    ) : base(type, period, value, description, installment, autoRealized, finished, accountId)
+        Category category,
+        DayOfWeek dayOfWeek,
+        DateTime? endDate = null
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         DayOfWeek = dayOfWeek;
     }
@@ -36,9 +38,11 @@ public class EventWeekly : Event
         Affirmation autoRealized,
         Affirmation finished,
         Guid accountId,
-        DayOfWeek dayOfWeek)
+        Category category,
+        DayOfWeek dayOfWeek,
+        DateTime? endDate = null)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
 
         Type         = type;
@@ -49,6 +53,8 @@ public class EventWeekly : Event
         AutoRealized = autoRealized;
         Finished     = finished;
         AccountId    = accountId;
+        Category     = category;
         DayOfWeek    = dayOfWeek;
+        EndDate      = endDate;
     }
 }

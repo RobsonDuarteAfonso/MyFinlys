@@ -14,4 +14,6 @@ public abstract class EventBaseDto
     public string AutoRealized { get; set; } = null!;
     public string Finished { get; set; } = null!;
     public Guid AccountId { get; set; }
+    public string Category { get; set; } = null!;
+    public DateTime? EndDate { get; set; }
 }

@@ -37,6 +37,7 @@ public class JwtAuthService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, dto.Email),
             new Claim("UserId", user.Id.ToString()),
+            new Claim("Type", user.Type.ToString()),
         };
 
         var token = new JwtSecurityToken(
@@ -51,6 +52,11 @@ public class JwtAuthService
         {
             Token     = new JwtSecurityTokenHandler().WriteToken(token),
             Name      = user.Name,
+            Email     = user.Email,
+            Avatar    = user.Avatar,
+            Type      = user.Type,
+            Phone     = user.Phone,
+            PreferredLanguage = user.PreferredLanguage,
             ExpiresAt = expires
         };
     }

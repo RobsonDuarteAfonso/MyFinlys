@@ -4,5 +4,8 @@ public enum EventPeriod
 {
     Monthly,
     Biweekly,
-    Weekly
+    Weekly,
+    Quarterly,
+    SemiAnnual,
+    Annual
 }
