@@ -534,6 +534,11 @@ public class RegisterService : IRegisterService
                 if (ev is EventBiweekly evBiweekly)
                 {
                     var current = evBiweekly.StartDate;
+                    // Align the starting date to the configured DayOfWeek
+                    while (current.DayOfWeek != evBiweekly.DayOfWeek)
+                    {
+                        current = current.AddDays(1);
+                    }
                     var maxDate = DateTime.Today.AddYears(2);
                     while (current <= maxDate)
                     {
