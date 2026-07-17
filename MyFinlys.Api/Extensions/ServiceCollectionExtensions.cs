@@ -54,6 +54,7 @@ namespace MyFinlys.Api.Extensions
             services.AddScoped<IEventAnnualService, EventAnnualService>();
             services.AddScoped<IAccountPermissionService, AccountPermissionService>();
             services.AddScoped<ICardPlanService, CardPlanService>();
+            services.AddScoped<IReceiptScannerService, ReceiptScannerService>();
 
             // AuthService
             services.AddScoped<JwtAuthService>();

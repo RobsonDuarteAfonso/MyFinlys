@@ -14,15 +14,18 @@ public class RegisterController : ControllerBase
     private readonly IRegisterService _registerService;
     private readonly IAccountPermissionService _permissionService;
     private readonly IEventRepository _eventRepository;
+    private readonly IReceiptScannerService _receiptScannerService;
 
     public RegisterController(
         IRegisterService registerService,
         IAccountPermissionService permissionService,
-        IEventRepository eventRepository)
+        IEventRepository eventRepository,
+        IReceiptScannerService receiptScannerService)
     {
         _registerService = registerService;
         _permissionService = permissionService;
         _eventRepository = eventRepository;
+        _receiptScannerService = receiptScannerService;
     }
 
     private Guid CurrentUserId
@@ -139,5 +142,36 @@ public class RegisterController : ControllerBase
 
         await _registerService.CloseMonthAsync(accountId, month, year);
         return Ok();
+    }
+
+    [HttpPost("scan")]
+    public async Task<IActionResult> ScanReceipt(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("Nenhum arquivo enviado.");
+        }
+
+        using var ms = new MemoryStream();
+        await file.CopyToAsync(ms);
+        var imageBytes = ms.ToArray();
+
+        try
+        {
+            var result = await _receiptScannerService.ScanReceiptAsync(imageBytes, file.ContentType);
+            if (result == null)
+            {
+                return BadRequest("Não foi possível extrair os dados do recibo.");
+            }
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Erro interno no servidor: {ex.Message}");
+        }
     }
 }
