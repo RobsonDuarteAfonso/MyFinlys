@@ -18,6 +18,8 @@ public class Register : Entity
     public Guid AccountId { get; private set; }
     public Account Account { get; private set; } = null!;
     public Category Category { get; private set; }
+    public Guid? CreditCardId { get; private set; }
+    public CreditCard? CreditCard { get; private set; }
 
     private Register() { }
 
@@ -32,7 +34,8 @@ public class Register : Entity
         Affirmation realized,
         Guid? eventId,
         Guid accountId,
-        Category category
+        Category category,
+        Guid? creditCardId
     ) : base()
     {
         Due = due;
@@ -46,6 +49,7 @@ public class Register : Entity
         EventId = eventId;
         AccountId = accountId;
         Category = category;
+        CreditCardId = creditCardId;
     }
 
     public static Register Create(
@@ -59,7 +63,8 @@ public class Register : Entity
         Affirmation realized,
         Guid? eventId,
         Guid accountId,
-        Category category
+        Category category,
+        Guid? creditCardId = null
     )
     {
         Guard.AgainstInvalidDate(due, nameof(due));
@@ -76,8 +81,12 @@ public class Register : Entity
         }
         Guard.AgainstEmptyGuid(accountId, nameof(accountId));
         Guard.AgainstInvalidEnumValue(category, nameof(category));
+        if (creditCardId.HasValue)
+        {
+            Guard.AgainstEmptyGuid(creditCardId.Value, nameof(creditCardId));
+        }
 
-        return new Register(due, eventType, installmentCurrent, value, subdescription, month, week, realized, eventId, accountId, category);
+        return new Register(due, eventType, installmentCurrent, value, subdescription, month, week, realized, eventId, accountId, category, creditCardId);
     }
     
     public void Update(
@@ -91,7 +100,8 @@ public class Register : Entity
         Affirmation realized,
         Guid? eventId,
         Guid accountId,
-        Category category)
+        Category category,
+        Guid? creditCardId = null)
     {
         Guard.AgainstInvalidDate(due, nameof(due));
         Guard.AgainstInvalidEnumValue(eventType, nameof(eventType));
@@ -107,6 +117,10 @@ public class Register : Entity
         }
         Guard.AgainstEmptyGuid(accountId, nameof(accountId));
         Guard.AgainstInvalidEnumValue(category, nameof(category));
+        if (creditCardId.HasValue)
+        {
+            Guard.AgainstEmptyGuid(creditCardId.Value, nameof(creditCardId));
+        }
 
         Due = due;
         EventType = eventType;
@@ -119,6 +133,7 @@ public class Register : Entity
         EventId = eventId;
         AccountId = accountId;
         Category = category;
+        CreditCardId = creditCardId;
     }
 
     public void MarkRealized()

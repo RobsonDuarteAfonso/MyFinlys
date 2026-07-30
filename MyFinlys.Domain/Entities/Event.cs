@@ -17,6 +17,8 @@ public abstract class Event : Entity
     public Account Account { get; protected set; } = null!;
     public Category Category { get; protected set; }
     public DateTime? EndDate { get; protected set; }
+    public Guid? CreditCardId { get; protected set; }
+    public CreditCard? CreditCard { get; protected set; }
 
     protected Event() { }
 
@@ -30,7 +32,8 @@ public abstract class Event : Entity
         Affirmation finished,
         Guid accountId,
         Category category,
-        DateTime? endDate = null
+        DateTime? endDate = null,
+        Guid? creditCardId = null
     )
     {
         Type = type;
@@ -43,6 +46,7 @@ public abstract class Event : Entity
         AccountId = accountId;
         Category = category;
         EndDate = endDate;
+        CreditCardId = creditCardId;
     }
     
     protected static void ValidateEventBase(
@@ -53,7 +57,8 @@ public abstract class Event : Entity
         Affirmation autoRealized,
         Affirmation finished,
         Guid accountId,
-        Category category
+        Category category,
+        Guid? creditCardId = null
     )
     {
         Guard.AgainstInvalidEnumValue(type, nameof(type));
@@ -64,5 +69,9 @@ public abstract class Event : Entity
         Guard.AgainstInvalidEnumValue(finished, nameof(finished));
         Guard.AgainstEmptyGuid(accountId, nameof(accountId));
         Guard.AgainstInvalidEnumValue(category, nameof(category));
+        if (creditCardId.HasValue)
+        {
+            Guard.AgainstEmptyGuid(creditCardId.Value, nameof(creditCardId));
+        }
     }
 }

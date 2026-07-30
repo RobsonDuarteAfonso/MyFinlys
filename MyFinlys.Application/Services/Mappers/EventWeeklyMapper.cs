@@ -23,7 +23,9 @@ public static class EventWeeklyMapper
             AccountId = e.AccountId,
             DayOfWeek = e.DayOfWeek.ToString(),
             Category = e.Category.ToString(),
-            EndDate = e.EndDate
+            EndDate = e.EndDate,
+            CreditCardId = e.CreditCardId,
+            CreditCardName = e.CreditCard?.Name
         };
     }
 }

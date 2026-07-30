@@ -24,7 +24,9 @@ public static class EventBiweeklyMapper
             DayOfWeek = e.DayOfWeek.ToString(),
             StartDate = e.StartDate,
             Category = e.Category.ToString(),
-            EndDate = e.EndDate
+            EndDate = e.EndDate,
+            CreditCardId = e.CreditCardId,
+            CreditCardName = e.CreditCard?.Name
         };
     }
 }

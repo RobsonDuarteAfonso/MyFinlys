@@ -13,4 +13,5 @@ public class RegisterUpdateDto
     public Guid? EventId { get; set; }
     public Guid AccountId { get; set; }
     public string Category { get; set; } = default!;
+    public Guid? CreditCardId { get; set; }
 }

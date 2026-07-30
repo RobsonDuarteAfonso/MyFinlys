@@ -23,7 +23,9 @@ public static class EventSemiAnnualMapper
             AccountId = e.AccountId,
             Due = e.Due,
             Category = e.Category.ToString(),
-            EndDate = e.EndDate
+            EndDate = e.EndDate,
+            CreditCardId = e.CreditCardId,
+            CreditCardName = e.CreditCard?.Name
         };
     }
 }

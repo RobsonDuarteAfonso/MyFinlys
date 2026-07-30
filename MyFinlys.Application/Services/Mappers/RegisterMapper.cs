@@ -20,7 +20,9 @@ public static class RegisterMapper
             Realized = register.Realized.ToString(),
             EventId = register.EventId,
             AccountId = register.AccountId,
-            Category = register.Category.ToString()
+            Category = register.Category.ToString(),
+            CreditCardId = register.CreditCardId,
+            CreditCardName = register.CreditCard?.Name
         };
     }
 }

@@ -23,10 +23,11 @@ public class EventBiweekly : Event
         Category category,
         DayOfWeek dayOfWeek,
         DateTime startDate,
-        DateTime? endDate = null
-    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate)
+        DateTime? endDate = null,
+        Guid? creditCardId = null
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate, creditCardId)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category, creditCardId);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         Guard.AgainstInvalidDate(startDate, nameof(startDate));
 
@@ -46,9 +47,10 @@ public class EventBiweekly : Event
         Category category,
         DayOfWeek dayOfWeek,
         DateTime startDate,
-        DateTime? endDate = null)
+        DateTime? endDate = null,
+        Guid? creditCardId = null)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category, creditCardId);
         Guard.AgainstInvalidEnumValue(dayOfWeek, nameof(dayOfWeek));
         Guard.AgainstInvalidDate(startDate, nameof(startDate));
 
@@ -64,5 +66,6 @@ public class EventBiweekly : Event
         DayOfWeek    = dayOfWeek;
         StartDate    = startDate;
         EndDate      = endDate;
+        CreditCardId = creditCardId;
     }
 }

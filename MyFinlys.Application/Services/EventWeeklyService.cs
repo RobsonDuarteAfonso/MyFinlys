@@ -46,7 +46,8 @@ namespace MyFinlys.Application.Services
                 dto.AccountId,
                 Enum.Parse<Category>(dto.Category, true),
                 Enum.Parse<DayOfWeek>(dto.DayOfWeek, true),
-                dto.EndDate
+                dto.EndDate,
+                dto.CreditCardId
             );
 
             await _eventRepository.AddAsync(entity);
@@ -82,7 +83,8 @@ namespace MyFinlys.Application.Services
                 dto.AccountId,
                 Enum.Parse<Category>(dto.Category, true),
                 Enum.Parse<DayOfWeek>(dto.DayOfWeek, true),
-                dto.EndDate
+                dto.EndDate,
+                dto.CreditCardId
             );
 
             await _eventRepository.UpdateAsync(entity);

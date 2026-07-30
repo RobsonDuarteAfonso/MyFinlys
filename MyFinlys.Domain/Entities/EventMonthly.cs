@@ -21,10 +21,11 @@ public class EventMonthly : Event
         Guid accountId,
         Category category,
         DateTime due,
-        DateTime? endDate = null
-    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate)
+        DateTime? endDate = null,
+        Guid? creditCardId = null
+    ) : base(type, period, value, description, installment, autoRealized, finished, accountId, category, endDate, creditCardId)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category, creditCardId);
         Guard.AgainstInvalidDate(due, nameof(due));
 
         Due = due;
@@ -41,9 +42,10 @@ public class EventMonthly : Event
         Guid accountId,
         Category category,
         DateTime due,
-        DateTime? endDate = null)
+        DateTime? endDate = null,
+        Guid? creditCardId = null)
     {
-        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category);
+        ValidateEventBase(type, period, value, description, autoRealized, finished, accountId, category, creditCardId);
         Guard.AgainstInvalidDate(due, nameof(due));
 
         Type         = type;
@@ -57,5 +59,6 @@ public class EventMonthly : Event
         Category     = category;
         Due          = due;
         EndDate      = endDate;
+        CreditCardId = creditCardId;
      }
 }

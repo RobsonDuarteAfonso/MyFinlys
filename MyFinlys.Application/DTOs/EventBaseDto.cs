@@ -16,4 +16,6 @@ public abstract class EventBaseDto
     public Guid AccountId { get; set; }
     public string Category { get; set; } = null!;
     public DateTime? EndDate { get; set; }
+    public Guid? CreditCardId { get; set; }
+    public string? CreditCardName { get; set; }
 }

@@ -62,6 +62,15 @@ namespace MyFinlys.Infrastructure.Mappings
                    .WithMany()
                    .HasForeignKey(r => r.AccountId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(r => r.CreditCardId)
+                   .IsRequired(false);
+
+            builder.HasOne(r => r.CreditCard)
+                   .WithMany()
+                   .HasForeignKey(r => r.CreditCardId)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

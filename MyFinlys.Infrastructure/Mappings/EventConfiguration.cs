@@ -77,6 +77,15 @@ namespace MyFinlys.Infrastructure.Mappings
                    .HasForeignKey(e => e.AccountId)
                    .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property(e => e.CreditCardId)
+                   .IsRequired(false);
+
+            builder.HasOne(e => e.CreditCard)
+                   .WithMany()
+                   .HasForeignKey(e => e.CreditCardId)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasDiscriminator<EventPeriod>("Period")
                    .HasValue<EventWeekly>(EventPeriod.Weekly)
                    .HasValue<EventMonthly>(EventPeriod.Monthly)

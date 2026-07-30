@@ -14,4 +14,6 @@ public class RegisterDto
     public Guid? EventId { get; set; }
     public Guid AccountId { get; set; }
     public string Category { get; set; } = null!;
+    public Guid? CreditCardId { get; set; }
+    public string? CreditCardName { get; set; }
 }

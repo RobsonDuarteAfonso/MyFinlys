@@ -13,17 +13,20 @@ public class RegisterService : IRegisterService
     private readonly IEventRepository _eventRepository;
     private readonly IBalanceRepository _balanceRepository;
     private readonly ICardInstallmentRepository _cardInstallmentRepository;
+    private readonly ICardPurchaseRepository _cardPurchaseRepository;
 
     public RegisterService(
         IRegisterRepository repository,
         IEventRepository eventRepository,
         IBalanceRepository balanceRepository,
-        ICardInstallmentRepository cardInstallmentRepository)
+        ICardInstallmentRepository cardInstallmentRepository,
+        ICardPurchaseRepository cardPurchaseRepository)
     {
         _repository = repository;
         _eventRepository = eventRepository;
         _balanceRepository = balanceRepository;
         _cardInstallmentRepository = cardInstallmentRepository;
+        _cardPurchaseRepository = cardPurchaseRepository;
     }
 
     private async Task EnsureMonthNotClosedAsync(Guid accountId, Month month, int year)
@@ -73,11 +76,14 @@ public class RegisterService : IRegisterService
             Enum.Parse<Affirmation>(dto.Realized),
             dto.EventId,
             dto.AccountId,
-            Enum.Parse<Category>(dto.Category)
+            Enum.Parse<Category>(dto.Category),
+            dto.CreditCardId
         );
 
         await _repository.AddAsync(entity);
         await _repository.SaveChangesAsync();
+
+        await AutoPostCardPaymentIfNeededAsync(entity);
 
         await RecalculateBalanceAsync(entity.AccountId, entity.Month, entity.Due.Year);
 
@@ -116,11 +122,14 @@ public class RegisterService : IRegisterService
             Enum.Parse<Affirmation>(dto.Realized),
             dto.EventId,
             dto.AccountId,
-            Enum.Parse<Category>(dto.Category)
+            Enum.Parse<Category>(dto.Category),
+            dto.CreditCardId
         );
 
         await _repository.UpdateAsync(entity);
         await _repository.SaveChangesAsync();
+
+        await AutoPostCardPaymentIfNeededAsync(entity);
 
         await RecalculateBalanceAsync(oldAccountId, oldMonth, oldYear);
 
@@ -511,19 +520,7 @@ public class RegisterService : IRegisterService
                                 continue;
 
                             int week = CalculateCalendarWeek(due);
-                            var reg = Register.Create(
-                                due,
-                                evWeekly.Type,
-                                installmentCurrent,
-                                evWeekly.Value,
-                                evWeekly.Description,
-                                targetMonth,
-                                week,
-                                Affirmation.No,
-                                evWeekly.Id,
-                                accountId,
-                                evWeekly.Category
-                            );
+                            var reg = CreateRegisterFromEvent(evWeekly, due, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                             list.Add(reg);
                         }
                     }
@@ -555,19 +552,7 @@ public class RegisterService : IRegisterService
                             }
 
                             int week = CalculateCalendarWeek(current);
-                            var reg = Register.Create(
-                                current,
-                                evBiweekly.Type,
-                                installmentCurrent,
-                                evBiweekly.Value,
-                                evBiweekly.Description,
-                                targetMonth,
-                                week,
-                                Affirmation.No,
-                                evBiweekly.Id,
-                                accountId,
-                                evBiweekly.Category
-                            );
+                            var reg = CreateRegisterFromEvent(evBiweekly, current, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                             list.Add(reg);
                         }
                         current = current.AddDays(14);
@@ -587,19 +572,7 @@ public class RegisterService : IRegisterService
                             break;
 
                         int week = CalculateCalendarWeek(due);
-                        var reg = Register.Create(
-                            due,
-                            evMonthly.Type,
-                            installmentCurrent,
-                            evMonthly.Value,
-                            evMonthly.Description,
-                            targetMonth,
-                            week,
-                            Affirmation.No,
-                            evMonthly.Id,
-                            accountId,
-                            evMonthly.Category
-                        );
+                        var reg = CreateRegisterFromEvent(evMonthly, due, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                         list.Add(reg);
                     }
                 }
@@ -620,19 +593,7 @@ public class RegisterService : IRegisterService
                                 break;
 
                             int week = CalculateCalendarWeek(due);
-                            var reg = Register.Create(
-                                due,
-                                evQuarterly.Type,
-                                installmentCurrent,
-                                evQuarterly.Value,
-                                evQuarterly.Description,
-                                targetMonth,
-                                week,
-                                Affirmation.No,
-                                evQuarterly.Id,
-                                accountId,
-                                evQuarterly.Category
-                            );
+                            var reg = CreateRegisterFromEvent(evQuarterly, due, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                             list.Add(reg);
                         }
                     }
@@ -654,19 +615,7 @@ public class RegisterService : IRegisterService
                                 break;
 
                             int week = CalculateCalendarWeek(due);
-                            var reg = Register.Create(
-                                due,
-                                evSemi.Type,
-                                installmentCurrent,
-                                evSemi.Value,
-                                evSemi.Description,
-                                targetMonth,
-                                week,
-                                Affirmation.No,
-                                evSemi.Id,
-                                accountId,
-                                evSemi.Category
-                            );
+                            var reg = CreateRegisterFromEvent(evSemi, due, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                             list.Add(reg);
                         }
                     }
@@ -688,19 +637,7 @@ public class RegisterService : IRegisterService
                                 break;
 
                             int week = CalculateCalendarWeek(due);
-                            var reg = Register.Create(
-                                due,
-                                evAnnual.Type,
-                                installmentCurrent,
-                                evAnnual.Value,
-                                evAnnual.Description,
-                                targetMonth,
-                                week,
-                                Affirmation.No,
-                                evAnnual.Id,
-                                accountId,
-                                evAnnual.Category
-                            );
+                            var reg = CreateRegisterFromEvent(evAnnual, due, installmentCurrent, targetMonth, week, Affirmation.No, accountId);
                             list.Add(reg);
                         }
                     }
@@ -709,6 +646,62 @@ public class RegisterService : IRegisterService
         }
 
         return list;
+    }
+
+    private Register CreateRegisterFromEvent(Event ev, DateTime due, int installmentCurrent, Month targetMonth, int week, Affirmation realized, Guid accountId)
+    {
+        return Register.Create(
+            due,
+            ev.Type,
+            installmentCurrent,
+            ev.Value,
+            ev.Description,
+            targetMonth,
+            week,
+            realized,
+            ev.Id,
+            accountId,
+            ev.Category,
+            ev.CreditCardId
+        );
+    }
+
+    private async Task AutoPostCardPaymentIfNeededAsync(Register register)
+    {
+        if (register.Category == Category.CreditCard && register.CreditCardId.HasValue && register.Realized == Affirmation.Yes)
+        {
+            var cardPurchases = await _cardPurchaseRepository.GetByCardAsync(register.CreditCardId.Value);
+            var exists = cardPurchases.Any(x => x.TotalAmount == register.Value && 
+                                                x.PurchaseDate.Date == register.Due.Date && 
+                                                x.Description == register.Subdescription &&
+                                                x.Type == PurchaseType.Debit);
+            if (!exists)
+            {
+                var purchase = CardPurchase.Create(
+                    register.Subdescription,
+                    register.Due,
+                    register.Value,
+                    1,
+                    register.CreditCardId.Value,
+                    null,
+                    Category.Others,
+                    PurchaseType.Debit
+                );
+
+                await _cardPurchaseRepository.AddAsync(purchase);
+                await _cardPurchaseRepository.SaveChangesAsync();
+
+                var installment = CardInstallment.Create(
+                    purchase.Id,
+                    1,
+                    register.Value,
+                    register.Due,
+                    Affirmation.Yes
+                );
+                await _cardInstallmentRepository.AddAsync(installment);
+                await _cardInstallmentRepository.SaveChangesAsync();
+            }
+        }
     }
 }
 
